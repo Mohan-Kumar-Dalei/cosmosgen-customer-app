@@ -9,6 +9,8 @@ import { api, errorFrom } from "../../src/api";
 import { Loading } from "../../src/Loading";
 import { TAB_BAR_SPACE } from "../../src/TabBar";
 import { Answer } from "../../src/Answer";
+import { TradeCard } from "../../src/TradeCard";
+import { useJobs } from "../../src/jobs";
 import { PageHeader } from "../../src/PageHeader";
 import { AiMark } from "../../src/Marks";
 import { Thinking } from "../../src/Thinking";
@@ -62,6 +64,9 @@ export default function Ask() {
     const s = useThemedStyles(makeStyles);
     const insets = useSafeAreaInsets();
 
+
+    // The catalogue is already here; the assistant only sends keys.
+    const { services } = useJobs();
     const [turns, setTurns] = useState([]);
     const [chatId, setChatId] = useState(null);
     const [draft, setDraft] = useState("");
@@ -142,7 +147,7 @@ export default function Ask() {
 
         try {
             const res = await api.post("/customer/ask", { message, chatId });
-            const { reply, chatId: id } = res.data.data;
+            const { reply, services, chatId: id } = res.data.data;
 
             /*
              * Marked as just-arrived, so it is written out a word at a time.
@@ -151,7 +156,21 @@ export default function Ask() {
              * screen is history, and history that types itself out is a wait
              * for something the customer has already read.
              */
-            setTurns((prev) => [...prev, { role: "model", text: reply, fresh: true }]);
+            setTurns((prev) => [...prev, {
+                role: "model",
+                text: reply,
+                fresh: true,
+
+                /*
+                 * The trades the answer pointed at, drawn as cards under it.
+                 *
+                 * The assistant used to be words and nothing else, so somebody
+                 * who had just described a fault was told what it sounded like
+                 * and then had to go and find the right card themselves. These
+                 * are keys; the catalogue is already on the phone.
+                 */
+                services: services || [],
+            }]);
 
             if (id && id !== chatId) {
                 setChatId(id);
@@ -317,6 +336,30 @@ export default function Ask() {
                                         ) : (
                                             <Answer text={turn.text} typing={turn.fresh} />
                                         )}
+
+                                        {/*
+                                          * What it just talked about, ready to open.
+                                          *
+                                          * Only on an answer, and only where the
+                                          * assistant named something - a card under
+                                          * "your engineer is ten minutes away" would
+                                          * be clutter, so the server sends no keys for
+                                          * those and nothing is drawn.
+                                          */}
+                                        {turn.role !== "user" && turn.services?.length ? (
+                                            <View style={s.suggested}>
+                                                {turn.services
+                                                    .map((key) => services.find((x) => x.key === key))
+                                                    .filter(Boolean)
+                                                    .map((service) => (
+                                                        <TradeCard
+                                                            key={service.key}
+                                                            service={service}
+                                                            wide
+                                                        />
+                                                    ))}
+                                            </View>
+                                        ) : null}
                                     </View>
                                 ))}
 
@@ -444,6 +487,7 @@ export default function Ask() {
 }
 
 const makeStyles = (colors) => StyleSheet.create({
+    suggested: { marginTop: space.md, gap: space.sm },
     topRow: {
         flexDirection: "row",
         alignItems: "center",

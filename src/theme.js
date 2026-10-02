@@ -397,7 +397,22 @@ export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 };
  * a 16px corner inside a 24px one keeps the two curves in step instead of the
  * inner one reading as a square dropped into a rounded box.
  */
-export const radius = { sm: 8, md: 16, lg: 24, xl: 32, xxl: 48, pill: 999 };
+/**
+ * How round a corner gets, and the answer is: less than it was.
+ *
+ * Mohan asked for the whole app to sit squarer - the layout is right, the
+ * corners were not. The scale is roughly halved rather than flattened: a
+ * 24-point card radius is a soft, friendly, slightly toy shape, and at 12 the
+ * same card reads as something a company made. Zero would be the other
+ * mistake; a hard corner on a phone looks like an unstyled view rather than a
+ * decision.
+ *
+ * `pill` is untouched. It is not a radius, it is a shape - a chip and a
+ * primary button are meant to be fully round ends, and squaring those would
+ * turn every control into a rectangle and lose the one place roundness is
+ * doing work.
+ */
+export const radius = { sm: 6, md: 10, lg: 14, xl: 18, xxl: 24, pill: 999 };
 
 /**
  * Outfit for anything large, Plus Jakarta Sans for everything else.

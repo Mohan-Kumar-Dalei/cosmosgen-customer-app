@@ -7,30 +7,36 @@ import { Button, Display, Lede, Small } from "../../src/ui";
 import { Icon } from "../../src/Icon";
 
 /**
- * The moment the job exists.
+ * Ribbons, falling, rather than dots flying apart.
  *
- * A screen that does nothing except say so, which is the one place in this app
- * that is allowed to be purely celebratory - everywhere else a page that only
- * congratulates somebody is a page between them and what they came for. Here it
- * is the point: a booking is a stranger agreeing to come to your house, and
- * landing back on a list with a new row in it does not acknowledge that.
+ * The first version was eight round specks thrown outward from the tick, which
+ * reads as a loading flourish rather than as a celebration. Mohan asked for the
+ * confetti.js ribbons instead - and that library is a web canvas, so it cannot
+ * come along; what travels is the shape and the motion. A ribbon is a thin
+ * rectangle that spins as it falls, and spinning is what separates confetti
+ * from a particle effect.
  *
- * The animation is the one exception to this app's own rule that only
- * navigation moves. It is eight discs and a tick, each on a single transform
- * driven by the native driver, and it plays once and stops - no loop, nothing
- * left running behind the screen. On the handsets this app has to work on that
- * is a few hundred milliseconds of compositing, which is affordable for the
- * only screen in the product that is a full stop.
+ * Still two animated values for the whole screen, not twelve. Every ribbon
+ * reads the same clock and differs only in where it starts and how fast it
+ * turns, so this is two native-driven animations rather than two dozen springs
+ * on the JS thread - which is the difference between a celebration and a
+ * stutter on the handsets this app has to keep working on.
+ *
+ * It plays once. Nothing loops, nothing is left running behind the screen.
  */
-const SPECKS = [
-    { x: -84, y: -54, size: 8, tone: "field", delay: 60 },
-    { x: 78, y: -66, size: 6, tone: "brand", delay: 140 },
-    { x: -102, y: 26, size: 5, tone: "warn", delay: 100 },
-    { x: 96, y: 18, size: 9, tone: "field", delay: 180 },
-    { x: -58, y: 84, size: 6, tone: "brand", delay: 220 },
-    { x: 62, y: 92, size: 7, tone: "warn", delay: 160 },
-    { x: -14, y: -102, size: 5, tone: "brand", delay: 200 },
-    { x: 26, y: 108, size: 5, tone: "field", delay: 120 },
+const RIBBONS = [
+    { x: -96, y: 150, w: 7, h: 15, spin: 3, tone: "brand", delay: 0 },
+    { x: 88, y: 168, w: 6, h: 13, spin: -4, tone: "field", delay: 40 },
+    { x: -46, y: 190, w: 8, h: 17, spin: 2, tone: "ok", delay: 90 },
+    { x: 52, y: 146, w: 5, h: 12, spin: -3, tone: "brand", delay: 130 },
+    { x: -124, y: 128, w: 6, h: 14, spin: 4, tone: "warn", delay: 70 },
+    { x: 118, y: 136, w: 7, h: 16, spin: -2, tone: "ok", delay: 170 },
+    { x: -16, y: 206, w: 6, h: 13, spin: 3, tone: "field", delay: 200 },
+    { x: 20, y: 184, w: 8, h: 18, spin: -4, tone: "brand", delay: 110 },
+    { x: -72, y: 172, w: 5, h: 11, spin: 2, tone: "ok", delay: 150 },
+    { x: 74, y: 198, w: 6, h: 14, spin: -3, tone: "warn", delay: 230 },
+    { x: -108, y: 206, w: 7, h: 15, spin: 4, tone: "field", delay: 190 },
+    { x: 104, y: 214, w: 5, h: 12, spin: -2, tone: "brand", delay: 250 },
 ];
 
 export default function Booked() {
@@ -68,37 +74,49 @@ export default function Booked() {
         <View style={[s.page, { paddingTop: insets.top, paddingBottom: insets.bottom + space.xl }]}>
             <View style={s.middle}>
                 <View style={s.stage}>
-                    {SPECKS.map((speck, i) => (
+                    {RIBBONS.map((ribbon, i) => (
                         <Animated.View
                             key={i}
                             style={[
-                                s.speck,
+                                s.ribbon,
                                 {
-                                    width: speck.size,
-                                    height: speck.size,
-                                    borderRadius: speck.size / 2,
-                                    backgroundColor: colors[speck.tone],
+                                    width: ribbon.w,
+                                    height: ribbon.h,
+                                    backgroundColor: colors[ribbon.tone],
                                     opacity: burst.interpolate({
-                                        inputRange: [0, 0.7, 1],
-                                        outputRange: [0, 1, 0.35],
+                                        inputRange: [0, 0.15, 0.75, 1],
+                                        outputRange: [0, 1, 1, 0],
                                     }),
                                     transform: [
                                         {
                                             translateX: burst.interpolate({
                                                 inputRange: [0, 1],
-                                                outputRange: [0, speck.x],
+                                                outputRange: [0, ribbon.x],
                                             }),
                                         },
                                         {
+                                            /*
+                                             * Up first, then down - thrown rather
+                                             * than dropped. A ribbon that only
+                                             * falls looks like something broke.
+                                             */
                                             translateY: burst.interpolate({
+                                                inputRange: [0, 0.35, 1],
+                                                outputRange: [0, -ribbon.y * 0.45, ribbon.y],
+                                            }),
+                                        },
+                                        {
+                                            // The spin is the whole difference
+                                            // between confetti and a dot.
+                                            rotate: burst.interpolate({
                                                 inputRange: [0, 1],
-                                                outputRange: [0, speck.y],
+                                                outputRange: ["0deg", ribbon.spin * 180 + "deg"],
                                             }),
                                         },
                                         {
                                             scale: burst.interpolate({
-                                                inputRange: [0, 0.5, 1],
-                                                outputRange: [0.3, 1.2, 1],
+                                                inputRange: [0, 0.2, 1],
+                                                outputRange: [0.4, 1, 0.9],
                                             }),
                                         },
                                     ],
@@ -108,7 +126,7 @@ export default function Booked() {
                     ))}
 
                     <Animated.View style={[s.tick, { transform: [{ scale: pop }] }]}>
-                        <Icon name="check" size={44} color={colors.fieldInk} />
+                        <Icon name="check" size={44} color={colors.onInverse} weight="bold" />
                     </Animated.View>
                 </View>
 
@@ -159,11 +177,24 @@ const makeStyles = (colors) => StyleSheet.create({
     // A fixed box so the specks have something to fly out of without pushing
     // the heading around as they go.
     stage: { width: 240, height: 240, alignItems: "center", justifyContent: "center" },
-    speck: { position: "absolute" },
+    /*
+     * A thin rectangle with a softened end, which is what a paper ribbon looks
+     * like once it is moving. Rounded all the way would be a pill and would
+     * lose the flat edge that catches the eye as it turns.
+     */
+    ribbon: { position: "absolute", borderRadius: 2 },
 
+    /*
+     * Green, not blue.
+     *
+     * Blue is this app's action colour - it is the Continue button, the field,
+     * the thing you press. On the one screen where there is nothing left to
+     * press, it reads as another control. Green is the only thing on the
+     * screen and it means what it says: done.
+     */
     tick: {
         width: 104, height: 104, borderRadius: 52,
-        backgroundColor: colors.field,
+        backgroundColor: colors.ok,
         alignItems: "center", justifyContent: "center",
     },
 

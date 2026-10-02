@@ -225,31 +225,19 @@ export const WHATSAPP_LINK =
  * is doing the work a photograph's own background would. Rotating through
  * three keeps a column of them from reading as one long tile.
  */
-/**
- * What the work usually comes to, said as a range and labelled as one.
+/*
+ * `usuallyCosts` was removed from here.
  *
- * "We cannot tell you anything about the price" is the reason somebody closes
- * the app and rings a man they already know - it is the first question anybody
- * asks before letting a stranger into the house. But a single figure would be
- * a promise the engineer cannot keep, because he has not seen the fault yet.
+ * It formatted a price range into "Usually Rs 400 to Rs 1,200" and called a
+ * `money` helper that does not exist in this file or anywhere imported into
+ * it - so the first screen to use it would have thrown on sight. Nothing ever
+ * did: it was exported, never called, and sat here looking finished.
  *
- * So it is the office's own range, from the office's own price list, with the
- * word "usually" carrying the honesty. A service nothing is priced for says
- * nothing at all, which is the truthful answer to a question we cannot answer.
- *
- * `short` is the same figure with the word dropped, for the catalogue tiles on
- * the home screen, where the column is 170 points wide and "Usually" would
- * push the money onto a second line.
+ * The app shows a range through `PriceRange` in ui.js, which lays the figures
+ * out rather than writing them into a sentence, and `estimateRange` below is
+ * what feeds it.
  */
-export const usuallyCosts = (range, { short = false } = {}) => {
-    if (!range || !range.from || !range.to) return null;
 
-    const figure = range.from === range.to
-        ? money(range.from)
-        : money(range.from) + (short ? " - " : " to ") + money(range.to);
-
-    return short ? figure : "Usually " + figure;
-};
 
 /**
  * What a job is likely to come to, as a range.

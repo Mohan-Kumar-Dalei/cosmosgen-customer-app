@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Modal, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Animated, Modal, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, errorFrom } from "../../src/api";
@@ -45,10 +45,40 @@ import { Icon } from "../../src/Icon";
  * would be a promise the office cannot keep, and it would be discovered at the
  * worst possible moment.
  */
+/*
+ * Each row says the same sentence in its own language.
+ *
+ * The English one did - "the assistant calls and writes in English" - and the
+ * other two said only that the assistant would speak that language. Mohan's
+ * point was that the English row tells the customer what they are choosing and
+ * the others do not: that this one setting covers both the call and the chat,
+ * and that it is the assistant it governs. Somebody reading the Odia row
+ * should learn exactly what somebody reading the English row learns.
+ *
+ * So all three now name both channels. The script each is written in is the
+ * script that language is actually read in - Devanagari for Hindi, Odia for
+ * Odia - because this is the one screen where a customer is choosing by
+ * recognising their own writing.
+ */
 const LANGUAGES = [
-    { key: "english", mark: "EN", label: "English", note: "The assistant calls and writes in English" },
-    { key: "hinglish", mark: "हि", label: "Hinglish", note: "सहायक हिंदी में बात करेगा" },
-    { key: "odia", mark: "ଓ", label: "ଓଡ଼ିଆ", note: "ସହାୟକ ଓଡ଼ିଆରେ କଥା ହେବେ" },
+    {
+        key: "english",
+        mark: "EN",
+        label: "English",
+        note: "The assistant calls and writes in English",
+    },
+    {
+        key: "hinglish",
+        mark: "हि",
+        label: "Hindi",
+        note: "सहायक कॉल और चैट दोनों में हिंदी में बात करेगा",
+    },
+    {
+        key: "odia",
+        mark: "ଓ",
+        label: "ଓଡ଼ିଆ",
+        note: "ସହାୟକ call ଓ chat ଦୁଇଟିରେ ଓଡ଼ିଆରେ କଥା ହେବେ",
+    },
 ];
 
 /*
@@ -253,7 +283,7 @@ export default function Book() {
         issues: "What is wrong",
         describe: "In your words",
         when: "When to come",
-        language: "Your language",
+        language: "Assistant language",
         confirm: "Check and send",
     }[current] || "";
 
@@ -860,7 +890,7 @@ export default function Book() {
 
                 {current === "language" ? (
                     <>
-                        <Display style={{ marginTop: space.sm }}>Preferred language</Display>
+                        <Display style={{ marginTop: space.sm }}>AI assistant language</Display>
                         <Lede style={{ marginTop: space.sm }}>
                             The assistant rings you after this booking and answers on WhatsApp
                             while the job runs - both in whichever language you pick here.
@@ -1200,11 +1230,56 @@ const AddressPicker = ({ open, items, chosenId, onPick, onClose, onManage }) => 
     const colors = useColors();
     const s = useThemedStyles(makeStyles);
 
+    /*
+     * The sheet rises; the window does not.
+     *
+     * This was the last `animationType="slide"` left in the app, and slide
+     * moves the whole window - which includes the dark wash behind the sheet.
+     * So the dimming arrived as a black rectangle climbing up the screen
+     * rather than as the page fading where it stood. Mohan has described that
+     * black bar more than once, and `Confirm` in ui.js was fixed for it; this
+     * one was missed.
+     *
+     * Same treatment: the window appears at once with the scrim already
+     * covering the page, and only the sheet travels.
+     */
+    const rise = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        if (!open) {
+            rise.setValue(0);
+            return;
+        }
+
+        Animated.spring(rise, {
+            toValue: 1,
+            damping: 20,
+            stiffness: 220,
+            mass: 0.8,
+            useNativeDriver: true,
+        }).start();
+    }, [open, rise]);
+
+    if (!open) return null;
+
     return (
-        <Modal visible={open} transparent animationType="slide" onRequestClose={onClose}>
+        <Modal visible transparent animationType="none" onRequestClose={onClose}>
             <Pressable style={s.sheetBack} onPress={onClose} />
 
-            <View style={[s.sheet, { backgroundColor: colors.canvas }]}>
+            <Animated.View
+                style={[
+                    s.sheet,
+                    {
+                        backgroundColor: colors.canvas,
+                        transform: [{
+                            translateY: rise.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [420, 0],
+                            }),
+                        }],
+                    },
+                ]}
+            >
                 <View style={s.grabber} />
 
                 <Greeting>Send somebody to</Greeting>
@@ -1237,7 +1312,7 @@ const AddressPicker = ({ open, items, chosenId, onPick, onClose, onManage }) => 
                 <Button tone="quiet" icon="map-pin" onPress={onManage} style={{ marginTop: space.md }}>
                     Manage addresses
                 </Button>
-            </View>
+            </Animated.View>
         </Modal>
     );
 };

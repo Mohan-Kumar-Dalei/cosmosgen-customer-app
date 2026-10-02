@@ -1,209 +1,211 @@
-import ArrowLeftLine from "react-native-remix-icon/src/icons/ArrowLeftLine";
-import ArrowRightLine from "react-native-remix-icon/src/icons/ArrowRightLine";
-import ArrowUpLine from "react-native-remix-icon/src/icons/ArrowUpLine";
-import ArrowRightUpLine from "react-native-remix-icon/src/icons/ArrowRightUpLine";
-import CornerDownRightLine from "react-native-remix-icon/src/icons/CornerDownRightLine";
-
-import Notification3Line from "react-native-remix-icon/src/icons/Notification3Line";
-import BookmarkLine from "react-native-remix-icon/src/icons/BookmarkLine";
-import BookmarkFill from "react-native-remix-icon/src/icons/BookmarkFill";
-import CalendarLine from "react-native-remix-icon/src/icons/CalendarLine";
-import CheckLine from "react-native-remix-icon/src/icons/CheckLine";
-import CheckboxCircleLine from "react-native-remix-icon/src/icons/CheckboxCircleLine";
-import CloseLine from "react-native-remix-icon/src/icons/CloseLine";
-import CloseCircleLine from "react-native-remix-icon/src/icons/CloseCircleLine";
-import ArrowDownSLine from "react-native-remix-icon/src/icons/ArrowDownSLine";
-import ArrowUpSLine from "react-native-remix-icon/src/icons/ArrowUpSLine";
-import ArrowRightSLine from "react-native-remix-icon/src/icons/ArrowRightSLine";
-import ArrowLeftSLine from "react-native-remix-icon/src/icons/ArrowLeftSLine";
-import TimeLine from "react-native-remix-icon/src/icons/TimeLine";
-import EditLine from "react-native-remix-icon/src/icons/EditLine";
-import FileTextLine from "react-native-remix-icon/src/icons/FileTextLine";
-import GlobalLine from "react-native-remix-icon/src/icons/GlobalLine";
-import GridFill from "react-native-remix-icon/src/icons/GridFill";
-import GridLine from "react-native-remix-icon/src/icons/GridLine";
-import HomeLine from "react-native-remix-icon/src/icons/HomeLine";
-import HomeFill from "react-native-remix-icon/src/icons/HomeFill";
-import InformationLine from "react-native-remix-icon/src/icons/InformationLine";
-import LogoutBoxRLine from "react-native-remix-icon/src/icons/LogoutBoxRLine";
-import MapLine from "react-native-remix-icon/src/icons/MapLine";
-import MapPin2Line from "react-native-remix-icon/src/icons/MapPin2Line";
-import PhoneLine from "react-native-remix-icon/src/icons/PhoneLine";
-import AddLine from "react-native-remix-icon/src/icons/AddLine";
-import SubtractLine from "react-native-remix-icon/src/icons/SubtractLine";
-import SearchLine from "react-native-remix-icon/src/icons/SearchLine";
-import ShieldCheckLine from "react-native-remix-icon/src/icons/ShieldCheckLine";
-import Equalizer2Line from "react-native-remix-icon/src/icons/Equalizer2Line";
-import StarFill from "react-native-remix-icon/src/icons/StarFill";
-import ToolsLine from "react-native-remix-icon/src/icons/ToolsLine";
-import DeleteBinLine from "react-native-remix-icon/src/icons/DeleteBinLine";
-import UserLine from "react-native-remix-icon/src/icons/UserLine";
-import UserFollowLine from "react-native-remix-icon/src/icons/UserFollowLine";
-import WifiOffLine from "react-native-remix-icon/src/icons/WifiOffLine";
-import GroupLine from "react-native-remix-icon/src/icons/GroupLine";
-import Chat3Line from "react-native-remix-icon/src/icons/Chat3Line";
-import KeyLine from "react-native-remix-icon/src/icons/KeyLine";
-import ImageLine from "react-native-remix-icon/src/icons/ImageLine";
-import ListCheck from "react-native-remix-icon/src/icons/ListCheck";
-import InboxLine from "react-native-remix-icon/src/icons/InboxLine";
-import BriefcaseLine from "react-native-remix-icon/src/icons/BriefcaseLine";
-import NavigationLine from "react-native-remix-icon/src/icons/NavigationLine";
-import Loader4Line from "react-native-remix-icon/src/icons/Loader4Line";
-import CheckboxBlankCircleLine from "react-native-remix-icon/src/icons/CheckboxBlankCircleLine";
-import ForbidLine from "react-native-remix-icon/src/icons/ForbidLine";
-import CustomerService2Line from "react-native-remix-icon/src/icons/CustomerService2Line";
-import QuestionLine from "react-native-remix-icon/src/icons/QuestionLine";
-import LockLine from "react-native-remix-icon/src/icons/LockLine";
-import PriceTag3Line from "react-native-remix-icon/src/icons/PriceTag3Line";
-import ClipboardLine from "react-native-remix-icon/src/icons/ClipboardLine";
-import RefreshLine from "react-native-remix-icon/src/icons/RefreshLine";
-import CameraLine from "react-native-remix-icon/src/icons/CameraLine";
-import ErrorWarningLine from "react-native-remix-icon/src/icons/ErrorWarningLine";
-import DownloadLine from "react-native-remix-icon/src/icons/DownloadLine";
-import Settings3Line from "react-native-remix-icon/src/icons/Settings3Line";
-
-/* ---- the trades, which need marks of their own ---- */
-import TempColdLine from "react-native-remix-icon/src/icons/TempColdLine";
-import FlashlightLine from "react-native-remix-icon/src/icons/FlashlightLine";
-import WaterFlashLine from "react-native-remix-icon/src/icons/WaterFlashLine";
-import Brush2Line from "react-native-remix-icon/src/icons/Brush2Line";
-import PaintBrushLine from "react-native-remix-icon/src/icons/PaintBrushLine";
-import BugLine from "react-native-remix-icon/src/icons/BugLine";
-import HammerLine from "react-native-remix-icon/src/icons/HammerLine";
-import FridgeLine from "react-native-remix-icon/src/icons/FridgeLine";
-// Remix has no washing machine. A shirt is what the machine is for, which
-// is the nearest honest mark - and the word under the tile does the naming.
-import ShirtLine from "react-native-remix-icon/src/icons/ShirtLine";
-import Restaurant2Line from "react-native-remix-icon/src/icons/Restaurant2Line";
-import DropLine from "react-native-remix-icon/src/icons/DropLine";
-import FilterLine from "react-native-remix-icon/src/icons/FilterLine";
+import ArrowClockwise from "phosphor-react-native/lib/module/icons/ArrowClockwise";
+import ArrowCounterClockwise from "phosphor-react-native/lib/module/icons/ArrowCounterClockwise";
+import ArrowElbowDownRight from "phosphor-react-native/lib/module/icons/ArrowElbowDownRight";
+import ArrowLeft from "phosphor-react-native/lib/module/icons/ArrowLeft";
+import ArrowRight from "phosphor-react-native/lib/module/icons/ArrowRight";
+import ArrowUp from "phosphor-react-native/lib/module/icons/ArrowUp";
+import ArrowUpRight from "phosphor-react-native/lib/module/icons/ArrowUpRight";
+import ArrowsClockwise from "phosphor-react-native/lib/module/icons/ArrowsClockwise";
+import Bell from "phosphor-react-native/lib/module/icons/Bell";
+import BookmarkSimple from "phosphor-react-native/lib/module/icons/BookmarkSimple";
+import Briefcase from "phosphor-react-native/lib/module/icons/Briefcase";
+import Bug from "phosphor-react-native/lib/module/icons/Bug";
+import CalendarBlank from "phosphor-react-native/lib/module/icons/CalendarBlank";
+import Camera from "phosphor-react-native/lib/module/icons/Camera";
+import CaretDown from "phosphor-react-native/lib/module/icons/CaretDown";
+import CaretLeft from "phosphor-react-native/lib/module/icons/CaretLeft";
+import CaretRight from "phosphor-react-native/lib/module/icons/CaretRight";
+import CaretUp from "phosphor-react-native/lib/module/icons/CaretUp";
+import ChatCentered from "phosphor-react-native/lib/module/icons/ChatCentered";
+import ChatCircleDots from "phosphor-react-native/lib/module/icons/ChatCircleDots";
+import Check from "phosphor-react-native/lib/module/icons/Check";
+import CheckCircle from "phosphor-react-native/lib/module/icons/CheckCircle";
+import Circle from "phosphor-react-native/lib/module/icons/Circle";
+import CircleNotch from "phosphor-react-native/lib/module/icons/CircleNotch";
+import Clipboard from "phosphor-react-native/lib/module/icons/Clipboard";
+import Clock from "phosphor-react-native/lib/module/icons/Clock";
+import DownloadSimple from "phosphor-react-native/lib/module/icons/DownloadSimple";
+import Drop from "phosphor-react-native/lib/module/icons/Drop";
+import Feather from "phosphor-react-native/lib/module/icons/Feather";
+import FileText from "phosphor-react-native/lib/module/icons/FileText";
+import Funnel from "phosphor-react-native/lib/module/icons/Funnel";
+import Gear from "phosphor-react-native/lib/module/icons/Gear";
+import Globe from "phosphor-react-native/lib/module/icons/Globe";
+import Hammer from "phosphor-react-native/lib/module/icons/Hammer";
+import Headphones from "phosphor-react-native/lib/module/icons/Headphones";
+import House from "phosphor-react-native/lib/module/icons/House";
+import Image from "phosphor-react-native/lib/module/icons/Image";
+import Info from "phosphor-react-native/lib/module/icons/Info";
+import Key from "phosphor-react-native/lib/module/icons/Key";
+import Lightning from "phosphor-react-native/lib/module/icons/Lightning";
+import ListChecks from "phosphor-react-native/lib/module/icons/ListChecks";
+import Lock from "phosphor-react-native/lib/module/icons/Lock";
+import MagnifyingGlass from "phosphor-react-native/lib/module/icons/MagnifyingGlass";
+import MapPin from "phosphor-react-native/lib/module/icons/MapPin";
+import MapTrifold from "phosphor-react-native/lib/module/icons/MapTrifold";
+import Minus from "phosphor-react-native/lib/module/icons/Minus";
+import NavigationArrow from "phosphor-react-native/lib/module/icons/NavigationArrow";
+import PaintBrush from "phosphor-react-native/lib/module/icons/PaintBrush";
+import PencilSimple from "phosphor-react-native/lib/module/icons/PencilSimple";
+import Phone from "phosphor-react-native/lib/module/icons/Phone";
+import Plus from "phosphor-react-native/lib/module/icons/Plus";
+import Prohibit from "phosphor-react-native/lib/module/icons/Prohibit";
+import Question from "phosphor-react-native/lib/module/icons/Question";
+import ShieldCheck from "phosphor-react-native/lib/module/icons/ShieldCheck";
+import SignOut from "phosphor-react-native/lib/module/icons/SignOut";
+import SlidersHorizontal from "phosphor-react-native/lib/module/icons/SlidersHorizontal";
+import Square from "phosphor-react-native/lib/module/icons/Square";
+import SquaresFour from "phosphor-react-native/lib/module/icons/SquaresFour";
+import Star from "phosphor-react-native/lib/module/icons/Star";
+import Tag from "phosphor-react-native/lib/module/icons/Tag";
+import Thermometer from "phosphor-react-native/lib/module/icons/Thermometer";
+import Trash from "phosphor-react-native/lib/module/icons/Trash";
+import Tray from "phosphor-react-native/lib/module/icons/Tray";
+import User from "phosphor-react-native/lib/module/icons/User";
+import UserCheck from "phosphor-react-native/lib/module/icons/UserCheck";
+import Users from "phosphor-react-native/lib/module/icons/Users";
+import Warning from "phosphor-react-native/lib/module/icons/Warning";
+import WarningCircle from "phosphor-react-native/lib/module/icons/WarningCircle";
+import WifiSlash from "phosphor-react-native/lib/module/icons/WifiSlash";
+import Wind from "phosphor-react-native/lib/module/icons/Wind";
+import Wrench from "phosphor-react-native/lib/module/icons/Wrench";
+import X from "phosphor-react-native/lib/module/icons/X";
+import XCircle from "phosphor-react-native/lib/module/icons/XCircle";
 
 /**
- * Every mark in the app, from Remix Icon.
+ * Every mark in the app, from Phosphor.
  *
- * Mohan asked for these rather than pictures: an icon should be a vector that
- * takes the colour it is given and stays crisp at any size, not a PNG somebody
- * has to redraw for a new palette. Remix is the set he named.
+ * Mohan asked for vectors rather than pictures - an icon should take the
+ * colour it is given and stay crisp at any size, not be a PNG somebody redraws
+ * for a new palette - and Phosphor is the set he named. It replaces Remix,
+ * which was the set before it; the keys below are unchanged, so swapping the
+ * whole app over was this file and nothing else.
  *
  * Imported one file at a time rather than from the package's own index. That
- * index does `import * as Icon from "./icons"`, which pulls all three thousand
- * of them into the bundle - a few megabytes of SVG for the forty this app
- * actually draws, on handsets the product exists to keep working on. Naming
- * them here costs a line each and bundles exactly what is used.
+ * index reaches every icon in the set, which is a few megabytes of SVG for the
+ * seventy this app draws, on the handsets the product exists to keep working
+ * on. Naming them costs a line each and bundles exactly what is used.
  *
- * The keys are the names the app already had, from the set it used before.
- * That was deliberate: it let every call site keep the name it was passing, so
- * swapping the whole app over was a change of component rather than a rewrite
- * of thirty screens. New code should use the plain names below rather than
- * hunting for a Feather spelling.
+ * The keys are Feather spellings, from the set the app used before Remix. They
+ * stayed through both changes for the same reason: a call site should not have
+ * to care which library is underneath. New code should use the plain names
+ * here rather than hunting for a Feather one.
+ *
+ * Each entry is the component and, where the mark reads better solid, the
+ * weight to draw it at. A star, a tick and the tab you are standing on are
+ * filled; everything else is Phosphor's regular outline, which is what gives
+ * the set its evenness.
  */
 const MARKS = {
-    /* movement */
-    "arrow-left": ArrowLeftLine,
-    "arrow-right": ArrowRightLine,
-    "arrow-up": ArrowUpLine,
-    "arrow-up-right": ArrowRightUpLine,
-    "corner-down-right": CornerDownRightLine,
-    "chevron-down": ArrowDownSLine,
-    "chevron-up": ArrowUpSLine,
-    "chevron-right": ArrowRightSLine,
-    "chevron-left": ArrowLeftSLine,
 
-    /* state */
-    check: CheckLine,
-    "check-circle": CheckboxCircleLine,
-    circle: CheckboxBlankCircleLine,
-    x: CloseLine,
-    "x-circle": CloseCircleLine,
-    slash: ForbidLine,
-    "alert-circle": ErrorWarningLine,
-    info: InformationLine,
-    loader: Loader4Line,
-    "refresh-cw": RefreshLine,
-    "wifi-off": WifiOffLine,
+    /* movement */
+    "arrow-left": [ArrowLeft],
+    "arrow-right": [ArrowRight],
+    "arrow-up": [ArrowUp],
+    "arrow-up-right": [ArrowUpRight],
+    "corner-down-right": [ArrowElbowDownRight],
+    "chevron-down": [CaretDown],
+    "chevron-up": [CaretUp],
+    "chevron-right": [CaretRight],
+    "chevron-left": [CaretLeft],
+
+    /* how a thing is going */
+    check: [Check],
+    "check-circle": [CheckCircle, "fill"],
+    circle: [Circle],
+    x: [X],
+    "x-circle": [XCircle],
+    slash: [Prohibit],
+    "alert-circle": [WarningCircle],
+    "alert-triangle": [Warning],
+    info: [Info],
+    loader: [CircleNotch],
+    "refresh-cw": [ArrowsClockwise],
+    "rotate-cw": [ArrowClockwise],
+    "rotate-ccw": [ArrowCounterClockwise],
+    "wifi-off": [WifiSlash],
 
     /* places and people */
-    home: HomeLine,
-    "map-pin": MapPin2Line,
-    map: MapLine,
-    navigation: NavigationLine,
-    globe: GlobalLine,
-    user: UserLine,
-    "user-check": UserFollowLine,
-    users: GroupLine,
-    phone: PhoneLine,
-    headphones: CustomerService2Line,
-    "message-square": Chat3Line,
+    home: [House],
+    "map-pin": [MapPin],
+    map: [MapTrifold],
+    navigation: [NavigationArrow],
+    globe: [Globe],
+    user: [User],
+    "user-check": [UserCheck],
+    users: [Users],
+    phone: [Phone],
+    headphones: [Headphones],
+    "message-square": [ChatCentered],
+    bell: [Bell],
 
-    /* things on screen */
-    bell: Notification3Line,
-    bookmark: BookmarkLine,
-    "bookmark-fill": BookmarkFill,
-    calendar: CalendarLine,
-    clock: TimeLine,
-    "edit-2": EditLine,
-    "edit-3": PaintBrushLine,
-    "file-text": FileTextLine,
-    grid: GridFill,
+    /* things the app keeps */
+    bookmark: [BookmarkSimple],
+    "bookmark-fill": [BookmarkSimple, "fill"],
+    calendar: [CalendarBlank],
+    clock: [Clock],
+    "edit-2": [PencilSimple],
+    "edit-3": [PaintBrush],
+    "file-text": [FileText],
+    grid: [SquaresFour, "fill"],
+    "grid-line": [SquaresFour],
+    image: [Image],
+    list: [ListChecks],
+    inbox: [Tray],
+    briefcase: [Briefcase],
+    clipboard: [Clipboard],
+    camera: [Camera],
+    download: [DownloadSimple],
+    search: [MagnifyingGlass],
+    sliders: [SlidersHorizontal],
+    star: [Star, "fill"],
 
-    // The outline weight, for the tab bar - the filled grid beside a
-    // line house and a line calendar reads as the one that is already
-    // selected.
-    "grid-line": GridLine,
-    image: ImageLine,
-    list: ListCheck,
-    inbox: InboxLine,
-    briefcase: BriefcaseLine,
-    clipboard: ClipboardLine,
-    camera: CameraLine,
-    download: DownloadLine,
-    search: SearchLine,
-    sliders: Equalizer2Line,
-    star: StarFill,
-    shield: ShieldCheckLine,
-    key: KeyLine,
-    lock: LockLine,
-    tag: PriceTag3Line,
-    "help-circle": QuestionLine,
-    "log-out": LogoutBoxRLine,
-    "trash-2": DeleteBinLine,
-    plus: AddLine,
-    minus: SubtractLine,
-    settings: Settings3Line,
+    /* money, safety and the small print */
+    shield: [ShieldCheck],
+    key: [Key],
+    lock: [Lock],
+    tag: [Tag],
+    "help-circle": [Question],
+    "log-out": [SignOut],
+    "trash-2": [Trash],
+    plus: [Plus],
+    minus: [Minus],
+    settings: [Gear],
 
     /* the trades */
-    tool: ToolsLine,
-    wind: TempColdLine,
-    zap: FlashlightLine,
-    droplet: WaterFlashLine,
-    feather: Brush2Line,
-    filter: FilterLine,
-    thermometer: FridgeLine,
-    "rotate-cw": ShirtLine,
-    square: Restaurant2Line,
-    hammer: HammerLine,
-    bug: BugLine,
-    drop: DropLine,
+    tool: [Wrench],
+    wind: [Wind],
+    zap: [Lightning],
+    droplet: [Drop],
+    feather: [Feather],
+    filter: [Funnel],
+    thermometer: [Thermometer],
+    square: [Square],
+    hammer: [Hammer],
+    bug: [Bug],
+    drop: [Drop],
 
-    /* the nav bar, which names its own */
-    index: HomeFill,
-    services: ToolsLine,
-    jobs: CalendarLine,
-    account: UserLine,
-    ask: Chat3Line,
-    "bike-fast": NavigationLine,
+    /* the tab bar, which is named after where it goes */
+    index: [House, "fill"],
+    services: [Wrench],
+    jobs: [CalendarBlank],
+    account: [User],
+    ask: [ChatCircleDots],
+    "bike-fast": [NavigationArrow, "fill"],
 };
 
 /**
- * `<Icon name="map-pin" size={18} color={colors.ink} />`
- *
  * A name nobody has drawn yet falls back to the tool rather than to nothing.
  * A missing icon leaves a hole in a row that is laid out around it, and a hole
  * is harder to spot in testing than a wrong-but-present mark.
+ *
+ * `weight` can be overridden per use - a row that wants a solid star where the
+ * map says outline passes it - but the default comes from the table, so the
+ * app stays consistent without every call site repeating itself.
  */
-export const Icon = ({ name, size = 20, color = "#000", style }) => {
-    const Mark = MARKS[name] || MARKS.tool;
-    return <Mark width={size} height={size} fill={color} style={style} />;
+export const Icon = ({ name, size = 20, color = "#000", weight, style }) => {
+    const [Mark, solid] = MARKS[name] || MARKS.tool;
+    return <Mark size={size} color={color} weight={weight || solid || "regular"} style={style} />;
 };
 
 export default Icon;
