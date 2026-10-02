@@ -1,0 +1,85 @@
+{
+  "expo": {
+    "name": "Cosmosgen",
+    "slug": "cosmosgen-customer",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cosmosgen.customer",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Your location is used to find the door we are sending somebody to, and to show how far away they are."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ebe8e2",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.cosmosgen.customer",
+      "softwareKeyboardLayoutMode": "resize",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "VIBRATE",
+        "POST_NOTIFICATIONS"
+      ],
+      "backgroundColor": "#ebe8e2",
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "./plugins/withHighRefreshRate",
+      "./plugins/withReleaseSigning",
+      "./plugins/withPhoneArchitectures",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 180,
+          "resizeMode": "contain",
+          "backgroundColor": "#ebe8e2",
+          "dark": {
+            "image": "./assets/splash-icon.png",
+            "backgroundColor": "#0d1a26"
+          }
+        }
+      ],
+      "expo-image",
+      "expo-secure-store",
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Your location is used to find the door we are sending somebody to, and to show how far away they are."
+        }
+      ],
+      "expo-notifications",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "cmakeVersion": "3.31.6",
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true
+          }
+        }
+      ]
+    ],
+    "scheme": "cosmosgencustomer",
+    "owner": "mohandalei",
+    "extra": {
+      "eas": {
+        "projectId": "7237d918-9e06-4ea7-a3a7-7c1510a28f70"
+      }
+    },
+    "backgroundColor": "#ebe8e2"
+  }
+}

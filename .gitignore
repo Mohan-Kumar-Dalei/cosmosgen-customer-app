@@ -1,0 +1,63 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# generated native folders
+/ios
+/android
+
+# Local release signing - the same key EAS holds. Never commit these.
+release.jks
+keystore.properties
+
+# Signed APKs, staged here to be handed over.
+#
+# Each one is about 56 MB and a fresh pair is built most days - committing them
+# would add that much to the repository every time, permanently, for a file
+# nobody ever reads back out of git. GitHub warns above 50 MB and refuses
+# above 100.
+builds/
+
+# Firebase's Android client config.
+#
+# It carries a Google API key for this project. The key is a client one and
+# ships inside the APK anyway, so it is not a password - but it is still a key
+# on Mohan's Google Cloud project, it is only as safe as the restrictions set
+# on it in the console, and a public repository is a far easier place to find
+# one than a decompiled APK. It stays on the machines that build.
+google-services.json
