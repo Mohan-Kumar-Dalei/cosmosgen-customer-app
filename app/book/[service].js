@@ -304,15 +304,32 @@ export default function Book() {
     const counted = Object.keys(quantities);
 
     /*
-     * The machine they picked, as the object rather than the key.
+     * Everything in the basket, as objects rather than keys.
      *
-     * Several places want its name, its icon and its picture, and each of them
-     * was looking it up again from `appliance` - or, in the review card's case,
-     * not looking it up at all.
+     * `appliance` holds one machine - the one the faults question is about -
+     * and reading the review card off it was wrong twice over. A customer who
+     * counted an air conditioner and a washing machine was shown only the air
+     * conditioner, and asked to confirm a booking for half of what they had
+     * chosen.
+     *
+     * The basket is `quantities`, and this is the right source for anything
+     * summarising what is being booked. Mohan put it plainly: a single machine
+     * card books that machine, and the trade's own card is where somebody with
+     * several broken things picks several.
      */
-    const picked = appliance
-        ? (service?.appliances || []).find((a) => a.key === appliance) || null
-        : null;
+    const machines = counted
+        .map((k) => (service?.appliances || []).find((a) => a.key === k))
+        .filter(Boolean);
+
+    /*
+     * One machine is a machine; several are the trade that covers them.
+     *
+     * With one, the card shows it by name and picture, which is what somebody
+     * who tapped Air Conditioner expects to see confirmed back. With several
+     * there is no single picture that is honest, so the card is the trade and
+     * the machines are listed under it.
+     */
+    const picked = machines.length === 1 ? machines[0] : null;
 
     /*
      * The faults of every machine that was counted, kept under that machine.
@@ -1017,6 +1034,23 @@ export default function Book() {
                                             : (service.display || service.label)}
                                     </Body>
 
+                                    {/*
+                                      * And which machines, when there is more
+                                      * than one. The card above cannot say it
+                                      * in a name and this is the last screen
+                                      * before the booking goes.
+                                      */}
+                                    {machines.length > 1 ? (
+                                        <Small numberOfLines={2} style={s.reviewUnder}>
+                                            {machines
+                                                .map((m) => {
+                                                    const n = quantities[m.key] || 1;
+                                                    return (n > 1 ? n + " x " : "") + (m.display || m.label);
+                                                })
+                                                .join(", ")}
+                                        </Small>
+                                    ) : null}
+
                                     <PriceRange range={range} size="sm" />
                                 </View>
                             </View>
@@ -1064,8 +1098,10 @@ export default function Book() {
                                 tone="accent"
                                 label="Service"
                                 value={(service.display || service.label)
-                                    + (appliance
-                                        ? " \u00b7 " + ((service.appliances.find((a) => a.key === appliance)?.display) || appliance)
+                                    + (machines.length
+                                        ? " \u00b7 " + machines
+                                            .map((m) => m.display || m.label)
+                                            .join(", ")
                                         : "")}
                                 note={[
                                     issues.length
@@ -1437,6 +1473,8 @@ const makeStyles = (colors) => StyleSheet.create({
         backgroundColor: colors.accentTint,
     },
     reviewChipText: { fontFamily: font.semibold, fontSize: 10.5, color: colors.accentDeep },
+    reviewUnder: { marginTop: 2, fontSize: 12 },
+
     reviewName: { fontFamily: font.semibold, fontSize: 15, marginTop: 4, marginBottom: 2 },
 
     reviewRule: { height: 1, backgroundColor: colors.hairline, marginVertical: space.lg },

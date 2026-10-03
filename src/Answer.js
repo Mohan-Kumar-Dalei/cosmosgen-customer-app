@@ -149,10 +149,22 @@ const useReveal = (text, enabled) => {
     return { shown, done: shown.length >= full.length };
 };
 
-export const Answer = ({ text, typing }) => {
+export const Answer = ({ text, typing, onDone }) => {
     const styles = useThemedStyles(makeStyles);
     const { shown, done } = useReveal(text, Boolean(typing));
     const blocks = blocksFrom(shown);
+
+    /*
+     * Told when the answer has finished arriving.
+     *
+     * The suggested cards under a reply were appearing beside the first word
+     * of it, so somebody was offered something to book before they had read
+     * what it was for. Mohan asked for them after the typing, and the only
+     * thing that knows when typing ends is this.
+     */
+    useEffect(() => {
+        if (done) onDone?.();
+    }, [done, onDone]);
 
     return (
         <View style={{ gap: space.md }}>

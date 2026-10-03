@@ -68,6 +68,20 @@ export default function Ask() {
     // The catalogue is already here; the assistant only sends keys.
     const { services } = useJobs();
     const [turns, setTurns] = useState([]);
+
+    /*
+     * Which answers have finished arriving.
+     *
+     * The cards under a reply were drawn beside its first word, so somebody
+     * was offered something to book before they had read what it was for.
+     * They wait for the typing now. A turn read back from the server is not
+     * typed out at all, so it is in here from the start.
+     */
+    const [revealed, setRevealed] = useState(() => new Set());
+
+    const markRevealed = useCallback((key) => {
+        setRevealed((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
+    }, []);
     const [chatId, setChatId] = useState(null);
     const [draft, setDraft] = useState("");
     const [busy, setBusy] = useState(false);
@@ -334,7 +348,11 @@ export default function Ask() {
                                         {turn.role === "user" ? (
                                             <Body style={{ color: colors.fieldInk }}>{turn.text}</Body>
                                         ) : (
-                                            <Answer text={turn.text} typing={turn.fresh} />
+                                            <Answer
+                                                text={turn.text}
+                                                typing={turn.fresh}
+                                                onDone={() => markRevealed(i)}
+                                            />
                                         )}
 
                                         {/*
@@ -362,6 +380,10 @@ export default function Ask() {
                                                  * with a gap above it, under an
                                                  * answer, for no reason.
                                                  */
+                                                // Nothing until the answer has
+                                                // finished arriving - see `revealed`.
+                                                if (turn.fresh && !revealed.has(i)) return null;
+
                                                 const cards = (turn.services || [])
                                                     .map((key) => services.find((x) => x.key === key))
                                                     .filter(Boolean);

@@ -6,6 +6,7 @@
     "@expo-google-fonts/outfit": "^0.4.3",
     "@expo-google-fonts/plus-jakarta-sans": "^0.4.2",
     "@expo/vector-icons": "^15.0.2",
+    "@tsparticles/confetti": "^3.0.3",
     "axios": "^1.20.0",
     "expo": "~57.0.23",
     "expo-blur": "~57.0.3",

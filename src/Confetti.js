@@ -1,139 +1,155 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
+import { CONFETTI_LIB } from "./confetti.lib";
 
 /**
  * The confetti Mohan asked for, which is a web library.
  *
- * tsParticles' ribbons are what he pointed at, and there is no React Native
- * build of it - it draws to a canvas. So it runs where it can run: a WebView
- * laid over the screen, transparent, with nothing to press.
+ * tsParticles is what he pointed at and there is no React Native build of it -
+ * it draws to a canvas - so it runs where it can: a transparent WebView laid
+ * over the screen with nothing to press. Everything goes through it, because
+ * this sits over the two buttons somebody came here to use.
  *
- * It is drawn over the screen rather than inside the layout, so nothing here
- * can move a heading or push a button down the page. `pointerEvents="none"`
- * means every tap goes through it to the app underneath, which matters because
- * this sits over the two buttons somebody has come here to press.
+ * The library travels inside the app rather than coming from a CDN. It was
+ * fetched at first, and that put the one animation marking something going
+ * right behind a network request made at the exact moment it was wanted - so
+ * on the booking that mattered, nothing happened at all.
  *
- * The hand-drawn ribbons on the booking screen are kept underneath on purpose.
- * This needs the network - the library comes from a CDN at the moment it is
- * wanted - and a booking confirmed on a weak signal is exactly when it will
- * not arrive. When that happens the WebView draws nothing at all and the
- * ribbons behind it are the whole celebration, which is far better than a
- * screen that stays still because a script did not load.
+ * There is no `ribbons()` function, whatever the demo page implies. The whole
+ * library was searched and the word does not appear in it: confetti.js.org's
+ * ribbons are `confetti()` given long, slow, drifting particles. That is what
+ * is below.
  */
 
-const HTML = `<!DOCTYPE html>
+const html = (lib) => `<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body, html { width: 100%; height: 100%; overflow: hidden; background: transparent !important; }
-      canvas { position: absolute !important; top: 0 !important; left: 0 !important;
+      html, body { width: 100%; height: 100%; overflow: hidden; background: transparent !important; }
+      canvas { position: absolute !important; inset: 0 !important;
                width: 100% !important; height: 100% !important; pointer-events: none !important; }
     </style>
+    <script>${lib}</script>
   </head>
   <body>
     <script>
       /*
-       * Cosmosgen's own colours rather than the demo's.
-       *
-       * The library's sample throws gold, pink and orange, which belongs to
-       * somebody else's product. These are the brand green, the action blue
-       * and the done green this app already uses, so the celebration looks
-       * like it came from the same place as the screen under it.
+       * Cosmosgen's own colours, not the demo's gold and pink - the brand
+       * green, the action blue, the done green and one warm accent, so the
+       * celebration looks like it came from the same place as the screen.
        */
       var COLOURS = ["#17a03c", "#1b4de4", "#059669", "#f5a524"];
+
+      function ribbons(side) {
+        /*
+         * A ribbon is a long particle that falls slowly and drifts.
+         *
+         * scalar makes it big, gravity under one makes it hang, drift
+         * pushes it sideways so it wanders rather than drops, and ticks
+         * keeps it alive long enough to cross the screen. Those four together
+         * are what separates a ribbon from a dot.
+         */
+        confetti({
+          particleCount: 14,
+          startVelocity: 46,
+          spread: 60,
+          angle: side === "left" ? 60 : 120,
+          origin: { x: side === "left" ? 0 : 1, y: 0.75 },
+          colors: COLOURS,
+          shapes: ["square"],
+          scalar: 1.9,
+          gravity: 0.72,
+          drift: side === "left" ? 0.9 : -0.9,
+          ticks: 320,
+        });
+      }
 
       function run() {
         if (typeof confetti !== "function") return;
 
-        var endAt = Date.now() + 4000;
+        /* The moment itself - a burst from each lower corner. */
+        confetti({
+          particleCount: 90, spread: 78, startVelocity: 52,
+          angle: 60, origin: { x: 0, y: 0.85 }, colors: COLOURS, scalar: 1.1,
+        });
+        confetti({
+          particleCount: 90, spread: 78, startVelocity: 52,
+          angle: 120, origin: { x: 1, y: 0.85 }, colors: COLOURS, scalar: 1.1,
+        });
 
-        /* A burst from each lower corner first - the moment of the thing. */
-        confetti({ particleCount: 70, spread: 70, angle: 60, origin: { x: 0, y: 0.9 }, colors: COLOURS });
-        confetti({ particleCount: 70, spread: 70, angle: 120, origin: { x: 1, y: 0.9 }, colors: COLOURS });
+        /* Then the ribbons, which take their time. */
+        setTimeout(function () { ribbons("left"); ribbons("right"); }, 260);
+        setTimeout(function () { ribbons("left"); ribbons("right"); }, 900);
 
-        /* Then a thinner fall from the top, so it does not end all at once. */
+        /* And a thin fall from above, so it does not all end at once. */
+        var endAt = Date.now() + 2600;
         var falling = setInterval(function () {
           if (Date.now() >= endAt) return clearInterval(falling);
           confetti({
-            particleCount: 6, angle: 90, spread: 70,
-            origin: { x: Math.random(), y: 0 },
-            gravity: 1.1, colors: COLOURS,
+            particleCount: 4, angle: 90, spread: 100, startVelocity: 14,
+            origin: { x: Math.random(), y: -0.1 },
+            colors: COLOURS, shapes: ["square"], scalar: 1.5,
+            gravity: 0.8, drift: Math.random() * 1.6 - 0.8, ticks: 300,
           });
-        }, 120);
-
-        /* And the ribbons themselves, once the first burst has cleared. */
-        setTimeout(function () {
-          if (typeof ribbons === "function") ribbons({ colors: COLOURS });
-        }, 700);
+        }, 140);
       }
 
       if (document.readyState === "complete") run();
-      else window.onload = run;
+      else window.addEventListener("load", run);
     </script>
   </body>
 </html>`;
 
-export const Confetti = ({ delay = 260 }) => {
+export const Confetti = ({ delay = 240 }) => {
     /*
-     * Mounted after the screen has arrived.
+     * Mounted after the screen has arrived, and taken down when it is over.
      *
-     * A WebView starting up during a navigation transition competes with it
-     * for the same frames, and on a cheap handset that is a visible stutter on
-     * the one screen that should feel like a reward. Waiting costs a quarter
-     * of a second and the animation has four seconds to run.
+     * A WebView starting during a navigation transition competes with it for
+     * the same frames, which on a cheap handset is a visible stutter on the
+     * one screen that should feel like a reward. And one left mounted
+     * afterwards is a browser held open behind a page somebody is still
+     * reading.
      */
-    const [ready, setReady] = useState(false);
+    const [phase, setPhase] = useState("waiting");
 
     useEffect(() => {
-        const timer = setTimeout(() => setReady(true), delay);
-        return () => clearTimeout(timer);
+        const start = setTimeout(() => setPhase("playing"), delay);
+        return () => clearTimeout(start);
     }, [delay]);
 
-    /*
-     * And taken down once it has finished.
-     *
-     * Nothing is animating after that, but a WebView left mounted is a browser
-     * held open behind a screen somebody is still reading. It goes when the
-     * show is over.
-     */
-    const [done, setDone] = useState(false);
-
     useEffect(() => {
-        if (!ready) return undefined;
-        const timer = setTimeout(() => setDone(true), 6000);
-        return () => clearTimeout(timer);
-    }, [ready]);
+        if (phase !== "playing") return undefined;
+        const stop = setTimeout(() => setPhase("done"), 7000);
+        return () => clearTimeout(stop);
+    }, [phase]);
 
-    if (!ready || done) return null;
+    if (phase !== "playing") return null;
 
     return (
         <View style={s.over} pointerEvents="none">
             <WebView
                 originWhitelist={["*"]}
-                source={{ html: HTML }}
+                source={{ html: html(CONFETTI_LIB) }}
                 style={s.clear}
                 containerStyle={s.clear}
 
                 // Android paints a white page behind a WebView unless it is
-                // told twice: once for the view and once for the page itself.
+                // told twice: once for the view and once for the page.
                 backgroundColor="transparent"
                 androidLayerType="hardware"
 
                 scrollEnabled={false}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
-
-                // Nothing here is a page anybody navigates. If the script
-                // cannot be fetched the view simply stays empty, and the
-                // ribbons behind it carry the screen.
                 javaScriptEnabled
-                cacheEnabled
-                onError={() => setDone(true)}
-                onHttpError={() => setDone(true)}
+
+                // Nothing here is a page anybody navigates, and a WebView that
+                // cannot start should cost a celebration rather than a screen.
+                onError={() => setPhase("done")}
+                onRenderProcessGone={() => setPhase("done")}
             />
         </View>
     );
