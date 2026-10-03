@@ -1,76 +1,76 @@
-import ArrowClockwise from "phosphor-react-native/lib/module/icons/ArrowClockwise";
-import ArrowCounterClockwise from "phosphor-react-native/lib/module/icons/ArrowCounterClockwise";
-import ArrowElbowDownRight from "phosphor-react-native/lib/module/icons/ArrowElbowDownRight";
-import ArrowLeft from "phosphor-react-native/lib/module/icons/ArrowLeft";
-import ArrowRight from "phosphor-react-native/lib/module/icons/ArrowRight";
-import ArrowUp from "phosphor-react-native/lib/module/icons/ArrowUp";
-import ArrowUpRight from "phosphor-react-native/lib/module/icons/ArrowUpRight";
-import ArrowsClockwise from "phosphor-react-native/lib/module/icons/ArrowsClockwise";
-import Bell from "phosphor-react-native/lib/module/icons/Bell";
-import BookmarkSimple from "phosphor-react-native/lib/module/icons/BookmarkSimple";
-import Briefcase from "phosphor-react-native/lib/module/icons/Briefcase";
-import Bug from "phosphor-react-native/lib/module/icons/Bug";
-import CalendarBlank from "phosphor-react-native/lib/module/icons/CalendarBlank";
-import Camera from "phosphor-react-native/lib/module/icons/Camera";
-import CaretDown from "phosphor-react-native/lib/module/icons/CaretDown";
-import CaretLeft from "phosphor-react-native/lib/module/icons/CaretLeft";
-import CaretRight from "phosphor-react-native/lib/module/icons/CaretRight";
-import CaretUp from "phosphor-react-native/lib/module/icons/CaretUp";
-import ChatCentered from "phosphor-react-native/lib/module/icons/ChatCentered";
-import ChatCircleDots from "phosphor-react-native/lib/module/icons/ChatCircleDots";
-import Check from "phosphor-react-native/lib/module/icons/Check";
-import CheckCircle from "phosphor-react-native/lib/module/icons/CheckCircle";
-import Circle from "phosphor-react-native/lib/module/icons/Circle";
-import CircleNotch from "phosphor-react-native/lib/module/icons/CircleNotch";
-import Clipboard from "phosphor-react-native/lib/module/icons/Clipboard";
-import Clock from "phosphor-react-native/lib/module/icons/Clock";
-import DownloadSimple from "phosphor-react-native/lib/module/icons/DownloadSimple";
-import Drop from "phosphor-react-native/lib/module/icons/Drop";
-import Feather from "phosphor-react-native/lib/module/icons/Feather";
-import FileText from "phosphor-react-native/lib/module/icons/FileText";
-import Funnel from "phosphor-react-native/lib/module/icons/Funnel";
-import Gear from "phosphor-react-native/lib/module/icons/Gear";
-import Globe from "phosphor-react-native/lib/module/icons/Globe";
-import Hammer from "phosphor-react-native/lib/module/icons/Hammer";
-import Headphones from "phosphor-react-native/lib/module/icons/Headphones";
-import House from "phosphor-react-native/lib/module/icons/House";
-import Image from "phosphor-react-native/lib/module/icons/Image";
-import Info from "phosphor-react-native/lib/module/icons/Info";
-import Key from "phosphor-react-native/lib/module/icons/Key";
-import Lightning from "phosphor-react-native/lib/module/icons/Lightning";
-import ListChecks from "phosphor-react-native/lib/module/icons/ListChecks";
-import Lock from "phosphor-react-native/lib/module/icons/Lock";
-import MagnifyingGlass from "phosphor-react-native/lib/module/icons/MagnifyingGlass";
-import MapPin from "phosphor-react-native/lib/module/icons/MapPin";
-import MapTrifold from "phosphor-react-native/lib/module/icons/MapTrifold";
-import Minus from "phosphor-react-native/lib/module/icons/Minus";
-import NavigationArrow from "phosphor-react-native/lib/module/icons/NavigationArrow";
-import PaintBrush from "phosphor-react-native/lib/module/icons/PaintBrush";
-import PencilSimple from "phosphor-react-native/lib/module/icons/PencilSimple";
-import Phone from "phosphor-react-native/lib/module/icons/Phone";
-import Plus from "phosphor-react-native/lib/module/icons/Plus";
-import Prohibit from "phosphor-react-native/lib/module/icons/Prohibit";
-import Question from "phosphor-react-native/lib/module/icons/Question";
-import ShieldCheck from "phosphor-react-native/lib/module/icons/ShieldCheck";
-import SignOut from "phosphor-react-native/lib/module/icons/SignOut";
-import SlidersHorizontal from "phosphor-react-native/lib/module/icons/SlidersHorizontal";
-import Square from "phosphor-react-native/lib/module/icons/Square";
-import SquaresFour from "phosphor-react-native/lib/module/icons/SquaresFour";
-import Star from "phosphor-react-native/lib/module/icons/Star";
-import Tag from "phosphor-react-native/lib/module/icons/Tag";
-import Thermometer from "phosphor-react-native/lib/module/icons/Thermometer";
-import Trash from "phosphor-react-native/lib/module/icons/Trash";
-import Tray from "phosphor-react-native/lib/module/icons/Tray";
-import User from "phosphor-react-native/lib/module/icons/User";
-import UserCheck from "phosphor-react-native/lib/module/icons/UserCheck";
-import Users from "phosphor-react-native/lib/module/icons/Users";
-import Warning from "phosphor-react-native/lib/module/icons/Warning";
-import WarningCircle from "phosphor-react-native/lib/module/icons/WarningCircle";
-import WifiSlash from "phosphor-react-native/lib/module/icons/WifiSlash";
-import Wind from "phosphor-react-native/lib/module/icons/Wind";
-import Wrench from "phosphor-react-native/lib/module/icons/Wrench";
-import X from "phosphor-react-native/lib/module/icons/X";
-import XCircle from "phosphor-react-native/lib/module/icons/XCircle";
+import { ArrowClockwiseIcon } from "phosphor-react-native/src/icons/ArrowClockwise";
+import { ArrowCounterClockwiseIcon } from "phosphor-react-native/src/icons/ArrowCounterClockwise";
+import { ArrowElbowDownRightIcon } from "phosphor-react-native/src/icons/ArrowElbowDownRight";
+import { ArrowLeftIcon } from "phosphor-react-native/src/icons/ArrowLeft";
+import { ArrowRightIcon } from "phosphor-react-native/src/icons/ArrowRight";
+import { ArrowUpIcon } from "phosphor-react-native/src/icons/ArrowUp";
+import { ArrowUpRightIcon } from "phosphor-react-native/src/icons/ArrowUpRight";
+import { ArrowsClockwiseIcon } from "phosphor-react-native/src/icons/ArrowsClockwise";
+import { BellIcon } from "phosphor-react-native/src/icons/Bell";
+import { BookmarkSimpleIcon } from "phosphor-react-native/src/icons/BookmarkSimple";
+import { BriefcaseIcon } from "phosphor-react-native/src/icons/Briefcase";
+import { BugIcon } from "phosphor-react-native/src/icons/Bug";
+import { CalendarBlankIcon } from "phosphor-react-native/src/icons/CalendarBlank";
+import { CameraIcon } from "phosphor-react-native/src/icons/Camera";
+import { CaretDownIcon } from "phosphor-react-native/src/icons/CaretDown";
+import { CaretLeftIcon } from "phosphor-react-native/src/icons/CaretLeft";
+import { CaretRightIcon } from "phosphor-react-native/src/icons/CaretRight";
+import { CaretUpIcon } from "phosphor-react-native/src/icons/CaretUp";
+import { ChatCenteredIcon } from "phosphor-react-native/src/icons/ChatCentered";
+import { ChatCircleDotsIcon } from "phosphor-react-native/src/icons/ChatCircleDots";
+import { CheckIcon } from "phosphor-react-native/src/icons/Check";
+import { CheckCircleIcon } from "phosphor-react-native/src/icons/CheckCircle";
+import { CircleIcon } from "phosphor-react-native/src/icons/Circle";
+import { CircleNotchIcon } from "phosphor-react-native/src/icons/CircleNotch";
+import { ClipboardIcon } from "phosphor-react-native/src/icons/Clipboard";
+import { ClockIcon } from "phosphor-react-native/src/icons/Clock";
+import { DownloadSimpleIcon } from "phosphor-react-native/src/icons/DownloadSimple";
+import { DropIcon } from "phosphor-react-native/src/icons/Drop";
+import { FeatherIcon } from "phosphor-react-native/src/icons/Feather";
+import { FileTextIcon } from "phosphor-react-native/src/icons/FileText";
+import { FunnelIcon } from "phosphor-react-native/src/icons/Funnel";
+import { GearIcon } from "phosphor-react-native/src/icons/Gear";
+import { GlobeIcon } from "phosphor-react-native/src/icons/Globe";
+import { HammerIcon } from "phosphor-react-native/src/icons/Hammer";
+import { HeadphonesIcon } from "phosphor-react-native/src/icons/Headphones";
+import { HouseIcon } from "phosphor-react-native/src/icons/House";
+import { ImageIcon } from "phosphor-react-native/src/icons/Image";
+import { InfoIcon } from "phosphor-react-native/src/icons/Info";
+import { KeyIcon } from "phosphor-react-native/src/icons/Key";
+import { LightningIcon } from "phosphor-react-native/src/icons/Lightning";
+import { ListChecksIcon } from "phosphor-react-native/src/icons/ListChecks";
+import { LockIcon } from "phosphor-react-native/src/icons/Lock";
+import { MagnifyingGlassIcon } from "phosphor-react-native/src/icons/MagnifyingGlass";
+import { MapPinIcon } from "phosphor-react-native/src/icons/MapPin";
+import { MapTrifoldIcon } from "phosphor-react-native/src/icons/MapTrifold";
+import { MinusIcon } from "phosphor-react-native/src/icons/Minus";
+import { NavigationArrowIcon } from "phosphor-react-native/src/icons/NavigationArrow";
+import { PaintBrushIcon } from "phosphor-react-native/src/icons/PaintBrush";
+import { PencilSimpleIcon } from "phosphor-react-native/src/icons/PencilSimple";
+import { PhoneIcon } from "phosphor-react-native/src/icons/Phone";
+import { PlusIcon } from "phosphor-react-native/src/icons/Plus";
+import { ProhibitIcon } from "phosphor-react-native/src/icons/Prohibit";
+import { QuestionIcon } from "phosphor-react-native/src/icons/Question";
+import { ShieldCheckIcon } from "phosphor-react-native/src/icons/ShieldCheck";
+import { SignOutIcon } from "phosphor-react-native/src/icons/SignOut";
+import { SlidersHorizontalIcon } from "phosphor-react-native/src/icons/SlidersHorizontal";
+import { SquareIcon } from "phosphor-react-native/src/icons/Square";
+import { SquaresFourIcon } from "phosphor-react-native/src/icons/SquaresFour";
+import { StarIcon } from "phosphor-react-native/src/icons/Star";
+import { TagIcon } from "phosphor-react-native/src/icons/Tag";
+import { ThermometerIcon } from "phosphor-react-native/src/icons/Thermometer";
+import { TrashIcon } from "phosphor-react-native/src/icons/Trash";
+import { TrayIcon } from "phosphor-react-native/src/icons/Tray";
+import { UserIcon } from "phosphor-react-native/src/icons/User";
+import { UserCheckIcon } from "phosphor-react-native/src/icons/UserCheck";
+import { UsersIcon } from "phosphor-react-native/src/icons/Users";
+import { WarningIcon } from "phosphor-react-native/src/icons/Warning";
+import { WarningCircleIcon } from "phosphor-react-native/src/icons/WarningCircle";
+import { WifiSlashIcon } from "phosphor-react-native/src/icons/WifiSlash";
+import { WindIcon } from "phosphor-react-native/src/icons/Wind";
+import { WrenchIcon } from "phosphor-react-native/src/icons/Wrench";
+import { XIcon } from "phosphor-react-native/src/icons/X";
+import { XCircleIcon } from "phosphor-react-native/src/icons/XCircle";
 
 /**
  * Every mark in the app, from Phosphor.
@@ -81,15 +81,20 @@ import XCircle from "phosphor-react-native/lib/module/icons/XCircle";
  * which was the set before it; the keys below are unchanged, so swapping the
  * whole app over was this file and nothing else.
  *
- * Imported one file at a time rather than from the package's own index. That
- * index reaches every icon in the set, which is a few megabytes of SVG for the
- * seventy this app draws, on the handsets the product exists to keep working
- * on. Naming them costs a line each and bundles exactly what is used.
+ * Imported one at a time, from `src/icons` - the subpath the package's own
+ * exports map publishes, with a react-native condition pointing at the source.
+ * The package index reaches every icon in the set, which is megabytes of SVG
+ * for the eighty this app draws, on the handsets the product exists to keep
+ * working on.
+ *
+ * Named imports, and the name carries the `Icon` suffix. There is no default
+ * export in these files, and importing one as though there were gives
+ * undefined - which is not a compile error, so the app builds, installs, and
+ * then cannot draw a single screen. It did exactly that once.
  *
  * The keys are Feather spellings, from the set the app used before Remix. They
  * stayed through both changes for the same reason: a call site should not have
- * to care which library is underneath. New code should use the plain names
- * here rather than hunting for a Feather one.
+ * to care which library is underneath.
  *
  * Each entry is the component and, where the mark reads better solid, the
  * weight to draw it at. A star, a tick and the tab you are standing on are
@@ -99,99 +104,99 @@ import XCircle from "phosphor-react-native/lib/module/icons/XCircle";
 const MARKS = {
 
     /* movement */
-    "arrow-left": [ArrowLeft],
-    "arrow-right": [ArrowRight],
-    "arrow-up": [ArrowUp],
-    "arrow-up-right": [ArrowUpRight],
-    "corner-down-right": [ArrowElbowDownRight],
-    "chevron-down": [CaretDown],
-    "chevron-up": [CaretUp],
-    "chevron-right": [CaretRight],
-    "chevron-left": [CaretLeft],
+    "arrow-left": [ArrowLeftIcon],
+    "arrow-right": [ArrowRightIcon],
+    "arrow-up": [ArrowUpIcon],
+    "arrow-up-right": [ArrowUpRightIcon],
+    "corner-down-right": [ArrowElbowDownRightIcon],
+    "chevron-down": [CaretDownIcon],
+    "chevron-up": [CaretUpIcon],
+    "chevron-right": [CaretRightIcon],
+    "chevron-left": [CaretLeftIcon],
 
     /* how a thing is going */
-    check: [Check],
-    "check-circle": [CheckCircle, "fill"],
-    circle: [Circle],
-    x: [X],
-    "x-circle": [XCircle],
-    slash: [Prohibit],
-    "alert-circle": [WarningCircle],
-    "alert-triangle": [Warning],
-    info: [Info],
-    loader: [CircleNotch],
-    "refresh-cw": [ArrowsClockwise],
-    "rotate-cw": [ArrowClockwise],
-    "rotate-ccw": [ArrowCounterClockwise],
-    "wifi-off": [WifiSlash],
+    check: [CheckIcon],
+    "check-circle": [CheckCircleIcon, "fill"],
+    circle: [CircleIcon],
+    x: [XIcon],
+    "x-circle": [XCircleIcon],
+    slash: [ProhibitIcon],
+    "alert-circle": [WarningCircleIcon],
+    "alert-triangle": [WarningIcon],
+    info: [InfoIcon],
+    loader: [CircleNotchIcon],
+    "refresh-cw": [ArrowsClockwiseIcon],
+    "rotate-cw": [ArrowClockwiseIcon],
+    "rotate-ccw": [ArrowCounterClockwiseIcon],
+    "wifi-off": [WifiSlashIcon],
 
     /* places and people */
-    home: [House],
-    "map-pin": [MapPin],
-    map: [MapTrifold],
-    navigation: [NavigationArrow],
-    globe: [Globe],
-    user: [User],
-    "user-check": [UserCheck],
-    users: [Users],
-    phone: [Phone],
-    headphones: [Headphones],
-    "message-square": [ChatCentered],
-    bell: [Bell],
+    home: [HouseIcon],
+    "map-pin": [MapPinIcon],
+    map: [MapTrifoldIcon],
+    navigation: [NavigationArrowIcon],
+    globe: [GlobeIcon],
+    user: [UserIcon],
+    "user-check": [UserCheckIcon],
+    users: [UsersIcon],
+    phone: [PhoneIcon],
+    headphones: [HeadphonesIcon],
+    "message-square": [ChatCenteredIcon],
+    bell: [BellIcon],
 
     /* things the app keeps */
-    bookmark: [BookmarkSimple],
-    "bookmark-fill": [BookmarkSimple, "fill"],
-    calendar: [CalendarBlank],
-    clock: [Clock],
-    "edit-2": [PencilSimple],
-    "edit-3": [PaintBrush],
-    "file-text": [FileText],
-    grid: [SquaresFour, "fill"],
-    "grid-line": [SquaresFour],
-    image: [Image],
-    list: [ListChecks],
-    inbox: [Tray],
-    briefcase: [Briefcase],
-    clipboard: [Clipboard],
-    camera: [Camera],
-    download: [DownloadSimple],
-    search: [MagnifyingGlass],
-    sliders: [SlidersHorizontal],
-    star: [Star, "fill"],
+    bookmark: [BookmarkSimpleIcon],
+    "bookmark-fill": [BookmarkSimpleIcon, "fill"],
+    calendar: [CalendarBlankIcon],
+    clock: [ClockIcon],
+    "edit-2": [PencilSimpleIcon],
+    "edit-3": [PaintBrushIcon],
+    "file-text": [FileTextIcon],
+    grid: [SquaresFourIcon, "fill"],
+    "grid-line": [SquaresFourIcon],
+    image: [ImageIcon],
+    list: [ListChecksIcon],
+    inbox: [TrayIcon],
+    briefcase: [BriefcaseIcon],
+    clipboard: [ClipboardIcon],
+    camera: [CameraIcon],
+    download: [DownloadSimpleIcon],
+    search: [MagnifyingGlassIcon],
+    sliders: [SlidersHorizontalIcon],
+    star: [StarIcon, "fill"],
 
     /* money, safety and the small print */
-    shield: [ShieldCheck],
-    key: [Key],
-    lock: [Lock],
-    tag: [Tag],
-    "help-circle": [Question],
-    "log-out": [SignOut],
-    "trash-2": [Trash],
-    plus: [Plus],
-    minus: [Minus],
-    settings: [Gear],
+    shield: [ShieldCheckIcon],
+    key: [KeyIcon],
+    lock: [LockIcon],
+    tag: [TagIcon],
+    "help-circle": [QuestionIcon],
+    "log-out": [SignOutIcon],
+    "trash-2": [TrashIcon],
+    plus: [PlusIcon],
+    minus: [MinusIcon],
+    settings: [GearIcon],
 
     /* the trades */
-    tool: [Wrench],
-    wind: [Wind],
-    zap: [Lightning],
-    droplet: [Drop],
-    feather: [Feather],
-    filter: [Funnel],
-    thermometer: [Thermometer],
-    square: [Square],
-    hammer: [Hammer],
-    bug: [Bug],
-    drop: [Drop],
+    tool: [WrenchIcon],
+    wind: [WindIcon],
+    zap: [LightningIcon],
+    droplet: [DropIcon],
+    feather: [FeatherIcon],
+    filter: [FunnelIcon],
+    thermometer: [ThermometerIcon],
+    square: [SquareIcon],
+    hammer: [HammerIcon],
+    bug: [BugIcon],
+    drop: [DropIcon],
 
     /* the tab bar, which is named after where it goes */
-    index: [House, "fill"],
-    services: [Wrench],
-    jobs: [CalendarBlank],
-    account: [User],
-    ask: [ChatCircleDots],
-    "bike-fast": [NavigationArrow, "fill"],
+    index: [HouseIcon, "fill"],
+    services: [WrenchIcon],
+    jobs: [CalendarBlankIcon],
+    account: [UserIcon],
+    ask: [ChatCircleDotsIcon],
+    "bike-fast": [NavigationArrowIcon, "fill"],
 };
 
 /**
