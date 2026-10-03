@@ -45,15 +45,19 @@ import { MapPinIcon } from "phosphor-react-native/src/icons/MapPin";
 import { MapTrifoldIcon } from "phosphor-react-native/src/icons/MapTrifold";
 import { MinusIcon } from "phosphor-react-native/src/icons/Minus";
 import { NavigationArrowIcon } from "phosphor-react-native/src/icons/NavigationArrow";
+import { OvenIcon } from "phosphor-react-native/src/icons/Oven";
 import { PaintBrushIcon } from "phosphor-react-native/src/icons/PaintBrush";
 import { PencilSimpleIcon } from "phosphor-react-native/src/icons/PencilSimple";
 import { PhoneIcon } from "phosphor-react-native/src/icons/Phone";
+import { PipeIcon } from "phosphor-react-native/src/icons/Pipe";
 import { PlusIcon } from "phosphor-react-native/src/icons/Plus";
 import { ProhibitIcon } from "phosphor-react-native/src/icons/Prohibit";
 import { QuestionIcon } from "phosphor-react-native/src/icons/Question";
 import { ShieldCheckIcon } from "phosphor-react-native/src/icons/ShieldCheck";
 import { SignOutIcon } from "phosphor-react-native/src/icons/SignOut";
 import { SlidersHorizontalIcon } from "phosphor-react-native/src/icons/SlidersHorizontal";
+import { SnowflakeIcon } from "phosphor-react-native/src/icons/Snowflake";
+import { SprayBottleIcon } from "phosphor-react-native/src/icons/SprayBottle";
 import { SquareIcon } from "phosphor-react-native/src/icons/Square";
 import { SquaresFourIcon } from "phosphor-react-native/src/icons/SquaresFour";
 import { StarIcon } from "phosphor-react-native/src/icons/Star";
@@ -66,6 +70,7 @@ import { UserCheckIcon } from "phosphor-react-native/src/icons/UserCheck";
 import { UsersIcon } from "phosphor-react-native/src/icons/Users";
 import { WarningIcon } from "phosphor-react-native/src/icons/Warning";
 import { WarningCircleIcon } from "phosphor-react-native/src/icons/WarningCircle";
+import { WashingMachineIcon } from "phosphor-react-native/src/icons/WashingMachine";
 import { WifiSlashIcon } from "phosphor-react-native/src/icons/WifiSlash";
 import { WindIcon } from "phosphor-react-native/src/icons/Wind";
 import { WrenchIcon } from "phosphor-react-native/src/icons/Wrench";
@@ -189,6 +194,11 @@ const MARKS = {
     hammer: [HammerIcon],
     bug: [BugIcon],
     drop: [DropIcon],
+    "spray-bottle": [SprayBottleIcon],
+    "washing-machine": [WashingMachineIcon],
+    oven: [OvenIcon],
+    pipe: [PipeIcon],
+    snowflake: [SnowflakeIcon],
 
     /* the tab bar, which is named after where it goes */
     index: [HouseIcon, "fill"],

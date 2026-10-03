@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-    Pressable, ScrollView, StyleSheet, TextInput, View,
-} from "react-native";
+import { Animated, Easing, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { useRouter } from "expo-router";
 import { vaultDelete, vaultGet, vaultSet } from "../../src/vault";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -45,6 +43,49 @@ const OPENERS = [
  * usually is and what it usually costs, and hand over to the booking flow when
  * the customer wants one.
  */
+/**
+ * The suggested cards, arriving rather than appearing.
+ *
+ * They are drawn the instant the answer finishes typing, and a block of cards
+ * materialising at full size pushes everything above it and reads as a glitch -
+ * which is the word Mohan used. Fading and rising over a fifth of a second
+ * turns the same jump into something that looks intended.
+ *
+ * Opacity and transform only, so this runs on the native driver and costs
+ * nothing on the handsets the app has to stay smooth on.
+ */
+const Arriving = ({ children, style }) => {
+    const rise = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.timing(rise, {
+            toValue: 1,
+            duration: 220,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true,
+        }).start();
+    }, [rise]);
+
+    return (
+        <Animated.View
+            style={[
+                style,
+                {
+                    opacity: rise,
+                    transform: [{
+                        translateY: rise.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [10, 0],
+                        }),
+                    }],
+                },
+            ]}
+        >
+            {children}
+        </Animated.View>
+    );
+};
+
 export default function Ask() {
     /*
      * How far the composer has to rise, measured rather than guessed.
@@ -391,7 +432,7 @@ export default function Ask() {
                                                 if (!cards.length) return null;
 
                                                 return (
-                                                    <View style={s.suggested}>
+                                                    <Arriving style={s.suggested}>
                                                         {cards.map((service) => (
                                                             <TradeCard
                                                                 key={service.key}
@@ -399,7 +440,7 @@ export default function Ask() {
                                                                 wide
                                                             />
                                                         ))}
-                                                    </View>
+                                                    </Arriving>
                                                 );
                                             })()
                                         ) : null}

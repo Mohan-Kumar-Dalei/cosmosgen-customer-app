@@ -127,10 +127,10 @@ export const APPLIANCE_IMAGE = {
  * going to have to.
  */
 export const APPLIANCE_ICON = {
-    AC: "wind",
+    AC: "snowflake",
     FRIDGE: "thermometer",
-    WASHING_MACHINE: "rotate-cw",
-    MICROWAVE: "square",
+    WASHING_MACHINE: "washing-machine",
+    MICROWAVE: "oven",
     GEYSER: "droplet",
     WATER_PURIFIER: "filter",
 };
@@ -317,12 +317,12 @@ export const tintFor = (index) => ["sky", "leaf", "sand"][index % 3];
  * uses lucide, which is the same drawings under different names.
  */
 export const SERVICE_ICON = {
-    AC_APPLIANCE: "wind",
+    AC_APPLIANCE: "snowflake",
     ELECTRICAL: "zap",
-    PLUMBING: "droplet",
+    PLUMBING: "pipe",
     CARPENTRY: "tool",
     PEST_CONTROL: "shield",
-    HOME_CLEANING: "feather",
+    HOME_CLEANING: "spray-bottle",
     PAINTING: "edit-3",
 };
 

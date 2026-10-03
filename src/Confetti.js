@@ -28,9 +28,20 @@ const html = (lib) => `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 100%; height: 100%; overflow: hidden; background: transparent !important; }
-      canvas { position: absolute !important; inset: 0 !important;
-               width: 100% !important; height: 100% !important; pointer-events: none !important; }
+
+      /*
+       * Pinned to the viewport, not to the content.
+       *
+       * With height: 100% the body grew past the view - measured at 1274 in a
+       * 776 window - and the canvas grew with it, so the particles were spread
+       * over half again as much space as anybody could see and read as dust.
+       * vh and fixed are the two that cannot drift.
+       */
+      html, body { width: 100vw; height: 100vh; overflow: hidden;
+                   background: transparent !important; }
+      canvas { position: fixed !important; top: 0 !important; left: 0 !important;
+               width: 100vw !important; height: 100vh !important;
+               pointer-events: none !important; }
     </style>
     <script>${lib}</script>
   </head>
@@ -136,10 +147,23 @@ export const Confetti = ({ delay = 240 }) => {
                 style={s.clear}
                 containerStyle={s.clear}
 
-                // Android paints a white page behind a WebView unless it is
-                // told twice: once for the view and once for the page.
-                backgroundColor="transparent"
-                androidLayerType="hardware"
+                /*
+                 * Transparency is the style and the page, and nothing else.
+                 *
+                 * A `backgroundColor` prop was passed here and this library
+                 * has no such prop - it did nothing at all, which is part of
+                 * why the celebration never appeared over the screen. What
+                 * works is a transparent style on the view and a transparent
+                 * background in the HTML, which the page above sets.
+                 *
+                 * Software layer rather than hardware. Hardware is faster and
+                 * is the usual advice, but an Android WebView composited that
+                 * way over native views is exactly where transparency is
+                 * reported to fail - the view comes out opaque or blank. This
+                 * draws for two seconds on one screen; correctness is worth
+                 * more than the frames here.
+                 */
+                androidLayerType="software"
 
                 scrollEnabled={false}
                 showsHorizontalScrollIndicator={false}

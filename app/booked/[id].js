@@ -3,7 +3,7 @@ import { Animated, Easing, StyleSheet, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { font, radius, space, useColors, useThemedStyles } from "../../src/theme";
-import { Button, Display, Lede, Small } from "../../src/ui";
+import { Body, Button, Display, Lede, Small } from "../../src/ui";
 import { Icon } from "../../src/Icon";
 import { Confetti } from "../../src/Confetti";
 
@@ -57,7 +57,18 @@ Animated.spring(pop, {
               */}
             <Confetti />
             <View style={s.middle}>
+                {/*
+                  * The tick sits in a halo rather than on the page.
+                  *
+                  * A green disc alone on paper is a status badge. Two rings of
+                  * the same green at low opacity around it make it the thing
+                  * the screen was built for, which is what Mohan meant by
+                  * premium - the mark is the same, what changed is that the
+                  * page now appears to be arranged around it.
+                  */}
                 <View style={s.stage}>
+                    <Animated.View style={[s.haloOuter, { transform: [{ scale: pop }] }]} />
+                    <Animated.View style={[s.haloInner, { transform: [{ scale: pop }] }]} />
 
                     <Animated.View style={[s.tick, { transform: [{ scale: pop }] }]}>
                         <Icon name="check" size={44} color={colors.onInverse} weight="bold" />
@@ -71,10 +82,28 @@ Animated.spring(pop, {
                     and number the moment somebody accepts - nobody unknown turns up at your door.
                 </Lede>
 
+                {/*
+                  * The ticket number as a card, not a pill.
+                  *
+                  * It is the one thing on this screen somebody might read out
+                  * on a phone call or search for later, and it was set in the
+                  * same small grey as everything else. A panel of its own, the
+                  * number large and tabular, is the difference between a label
+                  * and a receipt.
+                  */}
                 {ticket ? (
-                    <View style={s.number}>
-                        <Small style={s.numberLabel}>YOUR JOB</Small>
-                        <Small style={s.numberValue}>{ticket}</Small>
+                    <View style={s.receipt}>
+                        <Small style={s.numberLabel}>YOUR JOB NUMBER</Small>
+                        <Body style={s.numberValue}>{ticket}</Body>
+
+                        <View style={s.receiptRule} />
+
+                        <View style={s.receiptRow}>
+                            <Icon name="shield" size={14} color={colors.ok} />
+                            <Small style={s.receiptNote}>
+                                Nothing is charged until the work is done and you have seen the bill
+                            </Small>
+                        </View>
                     </View>
                 ) : null}
             </View>
@@ -108,6 +137,45 @@ const makeStyles = (colors) => StyleSheet.create({
 
     middle: { flex: 1, alignItems: "center", justifyContent: "center" },
 
+    /*
+     * Two rings of the tick's own colour, barely there.
+     *
+     * Opacity rather than a lighter green, so they hold up on the dark theme
+     * as well - a tint mixed for paper goes muddy on a dark page, and the same
+     * colour at eight per cent does not.
+     */
+    haloOuter: {
+        position: "absolute",
+        width: 196, height: 196, borderRadius: 98,
+        backgroundColor: colors.ok,
+        opacity: 0.08,
+    },
+    haloInner: {
+        position: "absolute",
+        width: 148, height: 148, borderRadius: 74,
+        backgroundColor: colors.ok,
+        opacity: 0.14,
+    },
+
+    receipt: {
+        alignSelf: "stretch",
+        marginTop: space.xl,
+        padding: space.lg,
+        borderRadius: radius.lg,
+        backgroundColor: colors.surface,
+        borderWidth: 1,
+        borderColor: colors.hairline,
+        alignItems: "center",
+    },
+    receiptRule: {
+        alignSelf: "stretch",
+        height: 1,
+        marginVertical: space.md,
+        backgroundColor: colors.hairline,
+    },
+    receiptRow: { flexDirection: "row", alignItems: "center", gap: space.sm },
+    receiptNote: { flex: 1, fontSize: 12, lineHeight: 17 },
+
     // A fixed box so the specks have something to fly out of without pushing
     // the heading around as they go.
     stage: { width: 240, height: 240, alignItems: "center", justifyContent: "center" },
@@ -134,18 +202,6 @@ const makeStyles = (colors) => StyleSheet.create({
         lineHeight: 21,
     },
 
-    number: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: space.sm,
-        marginTop: space.xl,
-        paddingHorizontal: space.lg,
-        paddingVertical: space.sm,
-        borderRadius: radius.pill,
-        backgroundColor: colors.surface,
-        borderWidth: 1,
-        borderColor: colors.hairline,
-    },
     numberLabel: {
         fontFamily: font.bold,
         fontSize: 9.5,
