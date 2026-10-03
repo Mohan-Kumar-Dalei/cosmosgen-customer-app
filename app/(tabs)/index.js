@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Linking, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 import { AreaCard } from "../../src/AreaCard";
 import { useArea } from "../../src/area";
 import {
@@ -14,7 +15,9 @@ import { Posters } from "../../src/Posters";
 import { HomeBones } from "../../src/Skeleton";
 import { Screen } from "../../src/screen";
 import { HeaderBand } from "../../src/HeaderBand";
-import { font, radius, space, useColors, useThemedStyles } from "../../src/theme";
+import {
+    font, radius, rampFor, space, useColors, useThemedStyles,
+} from "../../src/theme";
 import { Body, IconArt, PriceRange, Row, Small, Title } from "../../src/ui";
 import { Icon } from "../../src/Icon";
 
@@ -113,16 +116,33 @@ export default function Home() {
                     ) : null}
 
                     {/*
-                      * Whatever the office is putting in the window this week.
+                      * The band carries on behind the slider.
                       *
-                      * Above the area card because that is where Mohan asked
-                      * for it, and it is the right place: a poster is the first
-                      * thing a shop shows somebody walking in, and everything
-                      * under it - the area, the shelf, the prices - is what
-                      * they came for. It draws nothing at all when there are no
-                      * posters, so a quiet month costs the page no space.
+                      * Mohan asked for the slider inside the blue header, and
+                      * it cannot literally go there: the header sits outside
+                      * the scroller so the address and the bell stay reachable
+                      * down a long page, and a carousel pinned up there would
+                      * take a third of the screen and never move.
+                      *
+                      * What he is describing is the shape every delivery app
+                      * has, and this is how they do it. The blue runs on under
+                      * the posters and ends in the same rounded corners, so
+                      * from the top it reads as one coloured header with the
+                      * slider in it - and it scrolls away, leaving the compact
+                      * row behind.
+                      *
+                      * The negative margins are because the page has a gutter
+                      * and a band does not: this has to reach both edges while
+                      * the posters inside keep their own inset.
                       */}
-                    <Posters />
+                    <LinearGradient
+                        colors={rampFor(colors.field)}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={s.bandTail}
+                    >
+                        <Posters />
+                    </LinearGradient>
 
                     {/*
                       * The area card is an interruption, so it only interrupts
@@ -431,6 +451,22 @@ const TradeCard = ({ service, tint, onPress }) => {
 };
 
 const makeStyles = (colors) => StyleSheet.create({
+    /*
+     * Where the header's blue finishes.
+     *
+     * It reaches both screen edges while the page keeps its gutter - that is
+     * the negative margin - and it ends in the same corners the band above it
+     * does, so the two read as one block rather than two.
+     */
+    bandTail: {
+        marginHorizontal: -space.lg,
+        marginTop: -space.lg,
+        paddingTop: space.lg,
+        paddingBottom: space.lg,
+        borderBottomLeftRadius: radius.lg,
+        borderBottomRightRadius: radius.lg,
+    },
+
     sectionHead: {
         flexDirection: "row",
         alignItems: "flex-end",
