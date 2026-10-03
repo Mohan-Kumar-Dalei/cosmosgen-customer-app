@@ -213,9 +213,22 @@ const makeStyles = (colors) => StyleSheet.create({
      */
     band: {
         paddingHorizontal: space.lg,
-        paddingBottom: space.lg,
-        borderBottomLeftRadius: radius.lg,
-        borderBottomRightRadius: radius.lg,
+
+        /*
+         * No bottom corners, and no gap under it.
+         *
+         * This used to round off and finish, and the poster block below it
+         * rounded off and finished too - two coloured blocks with a seam
+         * between them, which is what Mohan photographed next to Swiggy's
+         * header. Theirs is one shape from the status bar to the bottom of the
+         * promos, and the whole of the difference is that the top half does
+         * not end.
+         *
+         * So the corners live on whatever is last. This is the top of a block;
+         * the posters are the bottom of it. The padding goes too, so the two
+         * halves touch rather than nearly touch.
+         */
+        paddingBottom: space.sm,
     },
 
     row: { flexDirection: "row", alignItems: "center", gap: space.sm },

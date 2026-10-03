@@ -514,8 +514,15 @@ const makeStyles = (colors) => StyleSheet.create({
          * blocks with a gap, which is the opposite of the one header it is
          * meant to read as.
          */
-        marginTop: -(space.sm + 1),
-        paddingTop: space.lg,
+        /*
+         * Up by a hair, so no paper can show through the join.
+         *
+         * The scroller has a small top padding of its own and a seam one pixel
+         * wide is still a seam - on a coloured block it reads as a line drawn
+         * across the header.
+         */
+        marginTop: -(space.sm + 2),
+        paddingTop: space.md,
         paddingBottom: space.lg,
 
         borderBottomLeftRadius: radius.lg,

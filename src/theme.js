@@ -152,39 +152,42 @@ const light = {
      * the screen allowed to shout.
      */
     /*
-     * Deep espresso, and the shade it goes when pressed.
+     * Deep forest, and the shade it goes when pressed.
      *
-     * This was Electric Royal Blue - loud, cold, and the single most saturated
-     * thing on every screen. Mohan asked for it gone and for the app to read
-     * as premium, and the two are the same request: a saturated primary makes
-     * a page look like software, because software is where that blue lives.
+     * Two colours came before it. Electric Royal Blue, which Mohan asked to be
+     * rid of - it was the most saturated thing on every screen, and a loud
+     * primary makes a page look like software because software is where that
+     * blue lives. Then a deep espresso, which he liked less: it was quiet
+     * where he wanted the app to feel confident.
      *
-     * Ink is what expensive things use instead. It cannot shout, so hierarchy
-     * has to come from type, spacing and the paper - which is exactly what the
-     * design language here already asks for - and against this warm canvas it
-     * reads as considered rather than as a product demo.
+     * This is the company's own green, taken down until it can carry a whole
+     * header. The logo green is a bright mid-tone and a band of it would be a
+     * highlighter; at this depth the same hue reads the way a dark green reads
+     * on anything expensive, and a paper-coloured heading sits on it without
+     * a fight.
      *
-     * Warm rather than neutral. A pure grey-black beside cream paper looks
-     * like a screenshot of a different app pasted in; this one has the same
-     * brown in it the paper does, so the two belong together.
+     * It is also the colour Mohan pointed at. He sent Swiggy's header as the
+     * thing to match, and theirs is this decision - a brand green deep enough
+     * to be furniture rather than decoration.
      *
-     * It also gives the rest of the palette back its meaning. The logo green,
-     * the done green and the terracotta warning were all competing with a
-     * colour louder than any of them; now the only saturated things on a
-     * screen are the ones that mean something.
+     * The palette keeps its meanings. `brand` stays the logo's bright green
+     * for money and confirmation, `ok` stays the cooler emerald for a thing
+     * that has happened, and this is darker than both - so where two greens
+     * meet, the difference is depth rather than hue, which is how the eye
+     * reads them anyway.
      */
-    accent: "#2f2a24",          // deep espresso
-    accentDeep: "#1c1915",      // the pressed state
-    accentTint: "#efeae1",      // its palest wash
-    accentEdge: "#dcd4c7",
+    accent: "#15572f",          // deep forest
+    accentDeep: "#0e3d20",      // the pressed state
+    accentTint: "#e4efe7",      // its palest wash
+    accentEdge: "#bed6c7",
 
     /*
      * A whole band of colour rather than a button's worth: the primary button,
      * the tab badge, the bar the booking flow finishes on.
      */
-    field: "#2f2a24",
-    fieldSoft: "#554c40",
-    fieldInk: "#f8f5ef",
+    field: "#15572f",
+    fieldSoft: "#2c7347",
+    fieldInk: "#f6f9f6",
 
     brand: "#17a03c",           // the logo green: money, done, confirmed
     brandDeep: "#128132",
@@ -307,23 +310,23 @@ const dark = {
      * reading as the thing to press.
      */
     /*
-     * The same decision inverted.
+     * The same green, lifted rather than deepened.
      *
-     * Ink cannot be the action colour on a near-black page - it would vanish -
-     * so on this side the primary is the paper itself: a warm off-white that
-     * carries the same warmth the light theme's espresso does, and stands out
-     * for the same reason, by being the one unsaturated thing with weight.
+     * A forest green on a near-black page is a dark shape on a dark page, so
+     * this side takes the hue up instead of down - bright enough to be the
+     * thing the eye finds, and still unmistakably the same colour as the light
+     * theme's band rather than a different idea for night.
      */
-    accent: "#e9e1d4",
-    accentDeep: "#f6f1e7",
-    accentTint: "#2a251f",
-    accentEdge: "#453d33",
+    accent: "#5fd089",
+    accentDeep: "#8ee0ab",
+    accentTint: "#13301f",
+    accentEdge: "#2c5c3e",
 
-    // The band and the primary button, inverted the same way the accent is -
-    // paper-coloured on a near-black page, with ink written on it.
-    field: "#e9e1d4",
-    fieldSoft: "#c9bfae",
-    fieldInk: "#221e19",
+    // The band and the primary button, in the lifted green, with the page's
+    // own near-black written on it.
+    field: "#5fd089",
+    fieldSoft: "#3f9c62",
+    fieldInk: "#0d2015",
 
     brand: "#4ac96d",
     brandDeep: "#4ac96d",
