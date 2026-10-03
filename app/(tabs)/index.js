@@ -205,15 +205,36 @@ export default function Home() {
                       * says so is worth one tile.
                       */}
                     <View style={s.grid}>
-                        {tiles.slice(0, 7).map((tile) => (
+                        {tiles.slice(0, 7).map((tile, i) => (
                             <Pressable
                                 key={tile.key}
                                 onPress={() => router.push(tile.to)}
                                 android_ripple={null}
                                 style={({ pressed }) => [s.tile, pressed ? { opacity: 0.7 } : null]}
                             >
-                                <View style={s.tileIcon}>
-                                    <Icon name={tile.icon} size={22} color={colors.field} />
+                                {/*
+                                  * Each one on its own wash, in duotone.
+                                  *
+                                  * Seven identical pale blue squares was the
+                                  * flattest thing on the page - a grid reads as
+                                  * one block when every cell is the same
+                                  * colour, and nothing in it invites a look.
+                                  * The three washes rotate, which is what the
+                                  * cards further down already do.
+                                  *
+                                  * Duotone is Phosphor drawing the mark solid
+                                  * and then lifting part of it: at twenty-two
+                                  * points that is the difference between an
+                                  * outline sitting on a square and something
+                                  * that belongs to it.
+                                  */}
+                                <View style={[s.tileIcon, { backgroundColor: washFor(colors, i) }]}>
+                                    <Icon
+                                        name={tile.icon}
+                                        size={24}
+                                        color={colors.field}
+                                        weight="duotone"
+                                    />
                                 </View>
                                 <Small style={s.tileName} numberOfLines={2}>{tile.label}</Small>
                             </Pressable>
@@ -224,8 +245,8 @@ export default function Home() {
                             android_ripple={null}
                             style={({ pressed }) => [s.tile, pressed ? { opacity: 0.7 } : null]}
                         >
-                            <View style={s.tileIcon}>
-                                <Icon name="grid" size={22} color={colors.field} />
+                            <View style={[s.tileIcon, { backgroundColor: washFor(colors, 7) }]}>
+                                <Icon name="grid-line" size={24} color={colors.field} weight="duotone" />
                             </View>
                             <Small style={s.tileName} numberOfLines={2}>More services</Small>
                         </Pressable>
@@ -450,6 +471,18 @@ const TradeCard = ({ service, tint, onPress }) => {
     );
 };
 
+/**
+ * Which of the three washes a tile sits on.
+ *
+ * `colors.art` holds them as gradient pairs, because that is what the picture
+ * frames need. A tile wants one flat colour, so this takes the first stop -
+ * the tinted end - and lets the page's own paper be the other.
+ */
+const washFor = (colors, i) => {
+    const wash = colors.art[["sky", "leaf", "sand"][i % 3]];
+    return (wash && wash[0]) || colors.accentTint;
+};
+
 const makeStyles = (colors) => StyleSheet.create({
     /*
      * Where the header's blue finishes.
@@ -503,7 +536,16 @@ const makeStyles = (colors) => StyleSheet.create({
     tileIcon: {
         width: 58, height: 58,
         borderRadius: radius.sm + 4,
+
+        // The colour comes from washFor, per tile. This is the fallback for
+        // anything drawn before that runs.
         backgroundColor: colors.accentTint,
+
+        // A hairline, so a pale square on pale paper still has an edge. It is
+        // the difference between a tinted shape and a thing you can press.
+        borderWidth: 1,
+        borderColor: colors.hairline,
+
         alignItems: "center", justifyContent: "center",
     },
     tileName: {

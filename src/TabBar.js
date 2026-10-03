@@ -190,9 +190,28 @@ export const CustomerTabBar = ({ state, descriptors, navigation }) => {
                             android_ripple={null}
                             style={s.slot}
                         >
+                            {/*
+                              * Filled where you are, outline where you are not.
+                              *
+                              * Phosphor draws every mark at several weights off
+                              * the same geometry, and this is what that is for:
+                              * the tab you are standing on is solid, the rest
+                              * are line, and the difference reads instantly
+                              * without a second colour or a second size. The
+                              * bar was all outline, so the only thing saying
+                              * where you were was a pale pill behind one of
+                              * them.
+                              */}
                             {Mark
                                 ? <Mark size={ICON - 1} color={ink} />
-                                : <Icon name={icon} size={ICON} color={ink} />}
+                                : (
+                                    <Icon
+                                        name={icon}
+                                        size={ICON}
+                                        color={ink}
+                                        weight={focused ? "fill" : "regular"}
+                                    />
+                                )}
 
                             <Text
                                 numberOfLines={1}
