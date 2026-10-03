@@ -492,10 +492,32 @@ const makeStyles = (colors) => StyleSheet.create({
      * does, so the two read as one block rather than two.
      */
     bandTail: {
+        /*
+         * Full width on the outside, the page's own gutter on the inside.
+         *
+         * The negative margin alone was wrong: the poster carousel sizes each
+         * card to the window minus that gutter, so taking the gutter away left
+         * every card narrower than its slot. The paging drifted, the cards
+         * slid off the right edge and the heading above them was clipped on
+         * the left. Putting the same amount back as padding gives the carousel
+         * exactly the width it had before while the blue still reaches both
+         * edges.
+         */
         marginHorizontal: -space.lg,
-        marginTop: -space.lg,
+        paddingHorizontal: space.lg,
+
+        /*
+         * And pulled up hard against the band.
+         *
+         * The scroller starts with its own small top padding, so without this
+         * a stripe of paper showed between the header and this - two blue
+         * blocks with a gap, which is the opposite of the one header it is
+         * meant to read as.
+         */
+        marginTop: -(space.sm + 1),
         paddingTop: space.lg,
         paddingBottom: space.lg,
+
         borderBottomLeftRadius: radius.lg,
         borderBottomRightRadius: radius.lg,
     },

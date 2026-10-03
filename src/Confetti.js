@@ -52,7 +52,11 @@ const html = (lib) => `<!DOCTYPE html>
        * green, the action blue, the done green and one warm accent, so the
        * celebration looks like it came from the same place as the screen.
        */
-      var COLOURS = ["#17a03c", "#1b4de4", "#059669", "#f5a524"];
+      /* The logo green, the done green, a warm amber and the terracotta the
+         * palette already warns in. No primary: ink does not read as a
+         * celebration, and this is the one place the page is allowed colour
+         * for its own sake. */
+        var COLOURS = ["#17a03c", "#059669", "#f5a524", "#c2683f"];
 
       function ribbons(side) {
         /*

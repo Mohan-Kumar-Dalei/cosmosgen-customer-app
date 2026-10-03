@@ -44,14 +44,14 @@ const WAITING_SVG = `
     </radialGradient>
     <linearGradient id="wblue" x1="0.1" y1="0" x2="0.9" y2="1">
       <stop offset="0" stop-color="#4b9ee4"/>
-      <stop offset="0.5" stop-color="#1b4de4"/>
+      <stop offset="0.5" stop-color="#2f2a24"/>
       <stop offset="1" stop-color="#0a4f8c"/>
     </linearGradient>
   </defs>
 
-  <circle cx="48" cy="48" r="34" fill="#1b4de4" opacity="0.13"/>
+  <circle cx="48" cy="48" r="34" fill="#2f2a24" opacity="0.13"/>
   <circle cx="48" cy="48" r="25" fill="#ffffff"/>
-  <circle cx="48" cy="48" r="25" fill="none" stroke="#1b4de4" stroke-width="2.2" opacity="0.55"/>
+  <circle cx="48" cy="48" r="25" fill="none" stroke="#2f2a24" stroke-width="2.2" opacity="0.55"/>
 
   <path d="M34 60 C34 51 40 46 48 46 C56 46 62 51 62 60 L62 64 C57 66 39 66 34 64 Z" fill="url(#wblue)"/>
   <circle cx="48" cy="44" r="12" fill="url(#wshell)"/>
@@ -99,8 +99,8 @@ const Pulse = memo(({ center }) => {
             center={center}
             radius={radius}
             strokeWidth={1.5}
-            strokeColor={"#1b4de4" + fade(0.45)}
-            fillColor={"#1b4de4" + fade(0.12)}
+            strokeColor={"#2f2a24" + fade(0.45)}
+            fillColor={"#2f2a24" + fade(0.12)}
         />
     );
 });

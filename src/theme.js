@@ -152,25 +152,39 @@ const light = {
      * the screen allowed to shout.
      */
     /*
-     * Electric Royal Blue, and the shade it goes when pressed.
+     * Deep espresso, and the shade it goes when pressed.
      *
-     * The one colour in the palette that is allowed to be cold. It is the
-     * punctuation in an otherwise organic page, which is exactly why it has
-     * to stay this saturated - warmed towards the paper it would stop being
-     * the thing the eye goes to.
+     * This was Electric Royal Blue - loud, cold, and the single most saturated
+     * thing on every screen. Mohan asked for it gone and for the app to read
+     * as premium, and the two are the same request: a saturated primary makes
+     * a page look like software, because software is where that blue lives.
+     *
+     * Ink is what expensive things use instead. It cannot shout, so hierarchy
+     * has to come from type, spacing and the paper - which is exactly what the
+     * design language here already asks for - and against this warm canvas it
+     * reads as considered rather than as a product demo.
+     *
+     * Warm rather than neutral. A pure grey-black beside cream paper looks
+     * like a screenshot of a different app pasted in; this one has the same
+     * brown in it the paper does, so the two belong together.
+     *
+     * It also gives the rest of the palette back its meaning. The logo green,
+     * the done green and the terracotta warning were all competing with a
+     * colour louder than any of them; now the only saturated things on a
+     * screen are the ones that mean something.
      */
-    accent: "#1b4de4",          // Electric Royal Blue
-    accentDeep: "#153ebd",      // the pressed state the system names
-    accentTint: "#e6eaff",      // its palest wash, warmed a touch
-    accentEdge: "#c3ccf5",
+    accent: "#2f2a24",          // deep espresso
+    accentDeep: "#1c1915",      // the pressed state
+    accentTint: "#efeae1",      // its palest wash
+    accentEdge: "#dcd4c7",
 
     /*
      * A whole band of colour rather than a button's worth: the primary button,
      * the tab badge, the bar the booking flow finishes on.
      */
-    field: "#1b4de4",
-    fieldSoft: "#4a6ae7",
-    fieldInk: "#ffffff",
+    field: "#2f2a24",
+    fieldSoft: "#554c40",
+    fieldInk: "#f8f5ef",
 
     brand: "#17a03c",           // the logo green: money, done, confirmed
     brandDeep: "#128132",
@@ -292,14 +306,24 @@ const dark = {
      * are chosen to sit on paper, and on a dark ground they go muddy and stop
      * reading as the thing to press.
      */
-    accent: "#b8c4ff",          // inverse-primary
-    accentDeep: "#dde1ff",
-    accentTint: "#1b2248",
-    accentEdge: "#3b3f63",
+    /*
+     * The same decision inverted.
+     *
+     * Ink cannot be the action colour on a near-black page - it would vanish -
+     * so on this side the primary is the paper itself: a warm off-white that
+     * carries the same warmth the light theme's espresso does, and stands out
+     * for the same reason, by being the one unsaturated thing with weight.
+     */
+    accent: "#e9e1d4",
+    accentDeep: "#f6f1e7",
+    accentTint: "#2a251f",
+    accentEdge: "#453d33",
 
-    field: "#2d50cd",
-    fieldSoft: "#4a6ae7",
-    fieldInk: "#ffffff",
+    // The band and the primary button, inverted the same way the accent is -
+    // paper-coloured on a near-black page, with ink written on it.
+    field: "#e9e1d4",
+    fieldSoft: "#c9bfae",
+    fieldInk: "#221e19",
 
     brand: "#4ac96d",
     brandDeep: "#4ac96d",
