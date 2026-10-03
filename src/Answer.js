@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Animated, Easing, StyleSheet, Text, View } from "react-native";
 import { font, radius, space, useThemedStyles } from "./theme";
 
 /**
@@ -149,22 +149,12 @@ const useReveal = (text, enabled) => {
     return { shown, done: shown.length >= full.length };
 };
 
-export const Answer = ({ text, typing, onDone }) => {
+export const Answer = ({ text, typing, after }) => {
     const styles = useThemedStyles(makeStyles);
     const { shown, done } = useReveal(text, Boolean(typing));
     const blocks = blocksFrom(shown);
 
-    /*
-     * Told when the answer has finished arriving.
-     *
-     * The suggested cards under a reply were appearing beside the first word
-     * of it, so somebody was offered something to book before they had read
-     * what it was for. Mohan asked for them after the typing, and the only
-     * thing that knows when typing ends is this.
-     */
-    useEffect(() => {
-        if (done) onDone?.();
-    }, [done, onDone]);
+
 
     return (
         <View style={{ gap: space.md }}>
@@ -204,7 +194,60 @@ export const Answer = ({ text, typing, onDone }) => {
                     </View>
                 );
             })}
+
+            {/*
+              * Whatever belongs under the answer, once the answer is there.
+              *
+              * The suggested cards were drawn beside the first word of a reply,
+              * so somebody was offered something to book before they had read
+              * what it was for. Mohan said it twice.
+              *
+              * The first attempt kept the waiting in the screen above, in a set
+              * of turn indices - and an index is not a turn. Clearing the chat
+              * left the old indices behind, so the next answer's cards appeared
+              * at once against a set that was about a conversation that no
+              * longer existed. The only thing that knows whether this answer
+              * has finished is this component, so the waiting lives here, and
+              * there is nothing left to get out of step.
+              */}
+            {done && after ? <Arriving>{after}</Arriving> : null}
         </View>
+    );
+};
+
+/**
+ * Arriving rather than appearing.
+ *
+ * A block that materialises at full size pushes everything above it and reads
+ * as a glitch, which is the word Mohan used for it. Fading and rising over a
+ * fifth of a second turns the same jump into something that looks intended.
+ *
+ * Opacity and transform only, so it runs on the native driver and costs
+ * nothing on the handsets this app has to stay smooth on.
+ */
+const Arriving = ({ children }) => {
+    const rise = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.timing(rise, {
+            toValue: 1,
+            duration: 240,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true,
+        }).start();
+    }, [rise]);
+
+    return (
+        <Animated.View
+            style={{
+                opacity: rise,
+                transform: [{
+                    translateY: rise.interpolate({ inputRange: [0, 1], outputRange: [10, 0] }),
+                }],
+            }}
+        >
+            {children}
+        </Animated.View>
     );
 };
 

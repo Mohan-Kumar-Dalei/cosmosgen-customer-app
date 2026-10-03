@@ -43,49 +43,6 @@ const OPENERS = [
  * usually is and what it usually costs, and hand over to the booking flow when
  * the customer wants one.
  */
-/**
- * The suggested cards, arriving rather than appearing.
- *
- * They are drawn the instant the answer finishes typing, and a block of cards
- * materialising at full size pushes everything above it and reads as a glitch -
- * which is the word Mohan used. Fading and rising over a fifth of a second
- * turns the same jump into something that looks intended.
- *
- * Opacity and transform only, so this runs on the native driver and costs
- * nothing on the handsets the app has to stay smooth on.
- */
-const Arriving = ({ children, style }) => {
-    const rise = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        Animated.timing(rise, {
-            toValue: 1,
-            duration: 220,
-            easing: Easing.out(Easing.cubic),
-            useNativeDriver: true,
-        }).start();
-    }, [rise]);
-
-    return (
-        <Animated.View
-            style={[
-                style,
-                {
-                    opacity: rise,
-                    transform: [{
-                        translateY: rise.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [10, 0],
-                        }),
-                    }],
-                },
-            ]}
-        >
-            {children}
-        </Animated.View>
-    );
-};
-
 export default function Ask() {
     /*
      * How far the composer has to rise, measured rather than guessed.
@@ -110,19 +67,6 @@ export default function Ask() {
     const { services } = useJobs();
     const [turns, setTurns] = useState([]);
 
-    /*
-     * Which answers have finished arriving.
-     *
-     * The cards under a reply were drawn beside its first word, so somebody
-     * was offered something to book before they had read what it was for.
-     * They wait for the typing now. A turn read back from the server is not
-     * typed out at all, so it is in here from the start.
-     */
-    const [revealed, setRevealed] = useState(() => new Set());
-
-    const markRevealed = useCallback((key) => {
-        setRevealed((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
-    }, []);
     const [chatId, setChatId] = useState(null);
     const [draft, setDraft] = useState("");
     const [busy, setBusy] = useState(false);
@@ -392,58 +336,41 @@ export default function Ask() {
                                             <Answer
                                                 text={turn.text}
                                                 typing={turn.fresh}
-                                                onDone={() => markRevealed(i)}
+
+                                                /*
+                                                 * What it just talked about,
+                                                 * drawn by `Answer` once the
+                                                 * answer has finished arriving.
+                                                 *
+                                                 * Resolved here because the
+                                                 * catalogue lives on this
+                                                 * screen: the server sends keys
+                                                 * and a key for a trade this
+                                                 * phone has not loaded, or one
+                                                 * the office has removed, finds
+                                                 * nothing and draws nothing.
+                                                 */
+                                                after={(() => {
+                                                    const cards = (turn.services || [])
+                                                        .map((key) => services.find((x) => x.key === key))
+                                                        .filter(Boolean);
+
+                                                    if (!cards.length) return null;
+
+                                                    return (
+                                                        <View style={s.suggested}>
+                                                            {cards.map((service) => (
+                                                                <TradeCard
+                                                                    key={service.key}
+                                                                    service={service}
+                                                                    wide
+                                                                />
+                                                            ))}
+                                                        </View>
+                                                    );
+                                                })()}
                                             />
                                         )}
-
-                                        {/*
-                                          * What it just talked about, ready to open.
-                                          *
-                                          * Only on an answer, and only where the
-                                          * assistant named something - a card under
-                                          * "your engineer is ten minutes away" would
-                                          * be clutter, so the server sends no keys for
-                                          * those and nothing is drawn.
-                                          */}
-                                        {turn.role !== "user" ? (
-                                            (() => {
-                                                /*
-                                                 * Resolved first, drawn second.
-                                                 *
-                                                 * The server sends keys and the
-                                                 * catalogue is looked up here, so
-                                                 * a key for a trade this phone has
-                                                 * not loaded - or one the office
-                                                 * has since removed - finds
-                                                 * nothing. Mapping inside the JSX
-                                                 * meant the row itself was still
-                                                 * drawn in that case: an empty box
-                                                 * with a gap above it, under an
-                                                 * answer, for no reason.
-                                                 */
-                                                // Nothing until the answer has
-                                                // finished arriving - see `revealed`.
-                                                if (turn.fresh && !revealed.has(i)) return null;
-
-                                                const cards = (turn.services || [])
-                                                    .map((key) => services.find((x) => x.key === key))
-                                                    .filter(Boolean);
-
-                                                if (!cards.length) return null;
-
-                                                return (
-                                                    <Arriving style={s.suggested}>
-                                                        {cards.map((service) => (
-                                                            <TradeCard
-                                                                key={service.key}
-                                                                service={service}
-                                                                wide
-                                                            />
-                                                        ))}
-                                                    </Arriving>
-                                                );
-                                            })()
-                                        ) : null}
                                     </View>
                                 ))}
 
