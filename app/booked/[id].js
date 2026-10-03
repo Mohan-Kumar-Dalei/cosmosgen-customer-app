@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { font, radius, space, useColors, useThemedStyles } from "../../src/theme";
 import { Button, Display, Lede, Small } from "../../src/ui";
 import { Icon } from "../../src/Icon";
+import { Confetti } from "../../src/Confetti";
 
 /**
  * Ribbons, falling, rather than dots flying apart.
@@ -86,6 +87,15 @@ export default function Booked() {
 
     return (
         <View style={[s.page, { paddingTop: insets.top, paddingBottom: insets.bottom + space.xl }]}>
+            {/*
+              * The real thing, over everything, when the network allows it.
+              *
+              * The hand-drawn ribbons below stay. They are what plays when this
+              * cannot load - a booking confirmed on a weak signal is exactly
+              * when a script from a CDN will not arrive, and a still screen at
+              * that moment would be worse than a smaller celebration.
+              */}
+            <Confetti />
             <View style={s.middle}>
                 <View style={s.stage}>
                     {RIBBONS.map((ribbon, i) => (

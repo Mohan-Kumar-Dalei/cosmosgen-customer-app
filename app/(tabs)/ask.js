@@ -346,19 +346,40 @@ export default function Ask() {
                                           * be clutter, so the server sends no keys for
                                           * those and nothing is drawn.
                                           */}
-                                        {turn.role !== "user" && turn.services?.length ? (
-                                            <View style={s.suggested}>
-                                                {turn.services
+                                        {turn.role !== "user" ? (
+                                            (() => {
+                                                /*
+                                                 * Resolved first, drawn second.
+                                                 *
+                                                 * The server sends keys and the
+                                                 * catalogue is looked up here, so
+                                                 * a key for a trade this phone has
+                                                 * not loaded - or one the office
+                                                 * has since removed - finds
+                                                 * nothing. Mapping inside the JSX
+                                                 * meant the row itself was still
+                                                 * drawn in that case: an empty box
+                                                 * with a gap above it, under an
+                                                 * answer, for no reason.
+                                                 */
+                                                const cards = (turn.services || [])
                                                     .map((key) => services.find((x) => x.key === key))
-                                                    .filter(Boolean)
-                                                    .map((service) => (
-                                                        <TradeCard
-                                                            key={service.key}
-                                                            service={service}
-                                                            wide
-                                                        />
-                                                    ))}
-                                            </View>
+                                                    .filter(Boolean);
+
+                                                if (!cards.length) return null;
+
+                                                return (
+                                                    <View style={s.suggested}>
+                                                        {cards.map((service) => (
+                                                            <TradeCard
+                                                                key={service.key}
+                                                                service={service}
+                                                                wide
+                                                            />
+                                                        ))}
+                                                    </View>
+                                                );
+                                            })()
                                         ) : null}
                                     </View>
                                 ))}

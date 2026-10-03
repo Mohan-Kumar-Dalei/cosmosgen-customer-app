@@ -96,8 +96,23 @@ const TICK_MS = 32;
  * answer and a twenty-line one both finish in about two seconds, so a long
  * reply never leaves somebody watching a machine type at them.
  */
+/*
+ * Anything in double brackets is ours, not theirs.
+ *
+ * The assistant ends some answers with a marker the server reads and removes -
+ * [[SERVICES:...]] and the rest. The server is where that belongs and it does
+ * it. But one of them reached a customer's screen once, inside the answer,
+ * because the expression that removed it was also the one that had to
+ * understand it and it understood nothing.
+ *
+ * So the screen refuses to draw one too. The server will almost always have
+ * taken it already; this is the second lock on a door that should not have
+ * opened, and it costs one pass over a string nobody is waiting on.
+ */
+const MARKERS = /\[\[[A-Z]+(?::[^\]]*)?\]\]/g;
+
 const useReveal = (text, enabled) => {
-    const full = String(text ?? "");
+    const full = String(text ?? "").replace(MARKERS, "").trim();
     const [shown, setShown] = useState(enabled ? "" : full);
 
     useEffect(() => {
