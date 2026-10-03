@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { vaultDelete, vaultGet, vaultSet } from "./vault";
+import { useSession } from "./session";
 import { api, errorFrom } from "./api";
 import { fixPosition } from "./location";
 
@@ -21,6 +22,7 @@ const AreaContext = createContext(null);
 const STORE = "cosmosgen.customer.area";
 
 export const AreaProvider = ({ children }) => {
+    const { customer } = useSession();
     const [status, setStatus] = useState("idle");   // idle | locating | loading | ready | error
     const [place, setPlace] = useState(null);
     const [services, setServices] = useState([]);
@@ -76,6 +78,32 @@ export const AreaProvider = ({ children }) => {
 
         return () => { alive = false; };
     }, [ask]);
+
+    /*
+     * And the address already on their account, if this phone knows nothing.
+     *
+     * This only ever read its own store, which is a device's memory of where
+     * somebody said they were. A customer who registered on another handset,
+     * reinstalled, or simply never used this card had an address saved on the
+     * account, saw it in the header at the top of the home screen, and was
+     * asked "Where are you?" underneath it. Mohan found exactly that.
+     *
+     * The account's address is the better answer anyway - it is the pin an
+     * engineer is sent to. It is used only as a starting point: `ask` checks
+     * coverage against it the same way it would a dropped pin, so a saved
+     * address in a town we have left still reports honestly.
+     *
+     * Deliberately not the other way round. Picking an area here does not
+     * touch the account, because this card is about where somebody is standing
+     * now and the address is about where the work happens.
+     */
+    useEffect(() => {
+        if (status !== "idle") return;
+        if (!Number.isFinite(customer?.lat) || !Number.isFinite(customer?.lon)) return;
+
+        const at = { lat: Number(customer.lat), lon: Number(customer.lon) };
+        ask(at, at);
+    }, [customer?.lat, customer?.lon, status, ask]);
 
     const detect = useCallback(async () => {
         setStatus("locating");

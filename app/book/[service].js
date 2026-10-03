@@ -3,7 +3,9 @@ import { Animated, Modal, Pressable, ScrollView, StyleSheet, TextInput, View } f
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, errorFrom } from "../../src/api";
-import { APPLIANCE_ICON, estimateRange, SERVICE_ICON } from "../../src/brand";
+import {
+    APPLIANCE_ICON, artFor, estimateRange, fitFor, SERVICE_ICON,
+} from "../../src/brand";
 import { oneLine, useAddresses } from "../../src/addresses";
 import { useJobs } from "../../src/jobs";
 import { Loading } from "../../src/Loading";
@@ -300,6 +302,17 @@ export default function Book() {
     }
 
     const counted = Object.keys(quantities);
+
+    /*
+     * The machine they picked, as the object rather than the key.
+     *
+     * Several places want its name, its icon and its picture, and each of them
+     * was looking it up again from `appliance` - or, in the review card's case,
+     * not looking it up at all.
+     */
+    const picked = appliance
+        ? (service?.appliances || []).find((a) => a.key === appliance) || null
+        : null;
 
     /*
      * The faults of every machine that was counted, kept under that machine.
@@ -964,11 +977,26 @@ export default function Book() {
                           * applies, and that the real total is agreed in front
                           * of the customer.
                           */}
+                        {/*
+                          * The machine they picked, not the trade it lives under.
+                          *
+                          * This card showed the parent trade and the parent's
+                          * picture whatever had been chosen - so somebody who
+                          * tapped Air Conditioner reached the last step and was
+                          * shown AC & Appliance Repair with a photograph of a
+                          * washing machine, asked to check and send a booking
+                          * for something they had not picked. The line further
+                          * down had it right the whole time, which made the two
+                          * halves of this screen disagree.
+                          */}
                         <View style={s.review}>
                             <View style={s.reviewHead}>
                                 <IconArt
-                                    src={service.image}
-                                    icon={SERVICE_ICON[service.key] || "tool"}
+                                    src={artFor(service, picked)}
+                                    fit={fitFor(service, picked)}
+                                    icon={picked
+                                        ? (APPLIANCE_ICON[picked.key] || SERVICE_ICON[service.key] || "tool")
+                                        : (SERVICE_ICON[service.key] || "tool")}
                                     tint="sky"
                                     tr="w-240"
                                     height={72}
@@ -984,7 +1012,9 @@ export default function Book() {
                                     </View>
 
                                     <Body style={s.reviewName} numberOfLines={2}>
-                                        {service.display || service.label}
+                                        {picked
+                                            ? (picked.display || picked.label)
+                                            : (service.display || service.label)}
                                     </Body>
 
                                     <PriceRange range={range} size="sm" />

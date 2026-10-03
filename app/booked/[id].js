@@ -61,9 +61,23 @@ export default function Booked() {
                 damping: 12,
                 mass: 0.9,
             }),
+            /*
+             * Slower, and started after the screen has arrived.
+             *
+             * It was seven hundred milliseconds beginning the instant this
+             * mounted - which is while the navigation transition is still
+             * moving the screen into place. The whole celebration was over
+             * before there was anything to celebrate on, so what Mohan saw was
+             * its end state: a green tick and nothing else.
+             *
+             * The delay is roughly one navigation transition. The duration is
+             * double what it was, because ribbons falling need long enough to
+             * read as falling rather than as a flicker.
+             */
             Animated.timing(burst, {
                 toValue: 1,
-                duration: 700,
+                delay: 260,
+                duration: 1500,
                 easing: Easing.out(Easing.cubic),
                 useNativeDriver: true,
             }),
@@ -84,7 +98,7 @@ export default function Booked() {
                                     height: ribbon.h,
                                     backgroundColor: colors[ribbon.tone],
                                     opacity: burst.interpolate({
-                                        inputRange: [0, 0.15, 0.75, 1],
+                                        inputRange: [0, 0.08, 0.82, 1],
                                         outputRange: [0, 1, 1, 0],
                                     }),
                                     transform: [
