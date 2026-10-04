@@ -18,8 +18,11 @@ import { HeaderBand } from "../../src/HeaderBand";
 import {
     font, radius, rampFor, space, useColors, useThemedStyles,
 } from "../../src/theme";
-import { Body, IconArt, PriceRange, Row, Small, Title } from "../../src/ui";
+import {
+    Body, IconArt, PriceRange, Row, Small, Title,
+} from "../../src/ui";
 import { Icon } from "../../src/Icon";
+import { pressStyle, rippleFor } from "../../src/touch";
 
 /**
  * What is happening now, then the shortest way to start the next thing.
@@ -194,61 +197,73 @@ export default function Home() {
                     </View>
 
                     {/*
-                      * Seven trades and a way to the rest, four to a row.
+                      * The machines, as pictures rather than as marks.
                       *
-                      * The tile is a rounded square rather than a disc, which
-                      * is the shape Mohan pointed at: a square holds a wider
-                      * mark and sits in a grid without the gaps a row of
-                      * circles leaves at its corners. The last one is always
-                      * "More services" - a grid that quietly stops at eight
-                      * gives no clue that there are more, and the row that
-                      * says so is worth one tile.
+                      * This was eight icon squares, fifty-eight points across,
+                      * four to a row - the grid every app in this category has,
+                      * and the reason the page read as a directory. Mohan said
+                      * the home screen did not feel premium, and the honest
+                      * answer was that its most expensive asset was being shown
+                      * at the size of a thumbnail: he commissioned a painting of
+                      * an engineer at work for each of these, and they were
+                      * appearing as a snowflake in a tinted box.
+                      *
+                      * So the pictures are the tiles. Two to a row, the artwork
+                      * across the top of each and the name under it - the shape
+                      * a shop uses for the thing it actually sells. Same tap,
+                      * same destination; what changed is that the customer can
+                      * see what they are tapping.
                       */}
-                    <View style={s.grid}>
-                        {tiles.slice(0, 7).map((tile, i) => (
+                    <View style={s.cards}>
+                        {tiles.slice(0, 6).map((tile, i) => (
                             <Pressable
                                 key={tile.key}
                                 onPress={() => router.push(tile.to)}
-                                android_ripple={null}
-                                style={({ pressed }) => [s.tile, pressed ? { opacity: 0.7 } : null]}
+                                android_ripple={rippleFor(colors)}
+                                style={({ pressed }) => [s.card, pressStyle({ pressed })]}
                             >
+                                <IconArt
+                                    src={tile.image}
+                                    icon={tile.icon}
+                                    tint={tintFor(i)}
+                                    tr="w-420"
+                                    height={104}
+                                    chip={false}
+                                />
+
                                 {/*
-                                  * Each one on its own wash, in duotone.
-                                  *
-                                  * Seven identical pale blue squares was the
-                                  * flattest thing on the page - a grid reads as
-                                  * one block when every cell is the same
-                                  * colour, and nothing in it invites a look.
-                                  * The three washes rotate, which is what the
-                                  * cards further down already do.
-                                  *
-                                  * Duotone is Phosphor drawing the mark solid
-                                  * and then lifting part of it: at twenty-two
-                                  * points that is the difference between an
-                                  * outline sitting on a square and something
-                                  * that belongs to it.
+                                  * The name under the picture, not on it. A
+                                  * caption over artwork needs a scrim to stay
+                                  * legible, and a scrim over a painting
+                                  * somebody commissioned is a strange thing to
+                                  * add to it.
                                   */}
-                                <View style={[s.tileIcon, { backgroundColor: washFor(colors, i) }]}>
-                                    <Icon
-                                        name={tile.icon}
-                                        size={24}
-                                        color={colors.field}
-                                        weight="duotone"
-                                    />
+                                <View style={s.cardFoot}>
+                                    <Small style={s.cardName} numberOfLines={2}>{tile.label}</Small>
                                 </View>
-                                <Small style={s.tileName} numberOfLines={2}>{tile.label}</Small>
                             </Pressable>
                         ))}
 
+                        {/*
+                          * And the way to the rest, in the same frame.
+                          *
+                          * A grid that stops at six says nothing about what is
+                          * behind it. This one carries a mark rather than a
+                          * picture, because there is no single honest
+                          * photograph of "everything else".
+                          */}
                         <Pressable
                             onPress={() => router.push("/categories")}
-                            android_ripple={null}
-                            style={({ pressed }) => [s.tile, pressed ? { opacity: 0.7 } : null]}
+                            android_ripple={rippleFor(colors)}
+                            style={({ pressed }) => [s.card, pressStyle({ pressed })]}
                         >
-                            <View style={[s.tileIcon, { backgroundColor: washFor(colors, 7) }]}>
-                                <Icon name="grid-line" size={24} color={colors.field} weight="duotone" />
+                            <View style={s.cardMoreMark}>
+                                <Icon name="grid-line" size={26} color={colors.field} weight="duotone" />
                             </View>
-                            <Small style={s.tileName} numberOfLines={2}>More services</Small>
+
+                            <View style={s.cardFoot}>
+                                <Small style={s.cardName}>All services</Small>
+                            </View>
                         </Pressable>
                     </View>
 
@@ -484,6 +499,42 @@ const washFor = (colors, i) => {
 };
 
 const makeStyles = (colors) => StyleSheet.create({
+    /*
+     * Two to a row, with room between them.
+     *
+     * Four to a row is what makes a grid read as a directory: at that width
+     * nothing can hold a picture, so every cell becomes a mark in a box and
+     * the page becomes a list of boxes. Two gives each one enough width for
+     * the artwork to be artwork, which is the whole reason for having it.
+     */
+    cards: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
+        gap: space.md,
+    },
+    card: {
+        width: "47.5%",
+        borderRadius: radius.lg,
+        backgroundColor: colors.surface,
+        borderWidth: 1,
+        borderColor: colors.hairline,
+        overflow: "hidden",
+    },
+    cardFoot: { paddingHorizontal: space.md, paddingVertical: space.md - 2 },
+    cardName: {
+        fontFamily: font.semibold,
+        fontSize: 13,
+        lineHeight: 17,
+        color: colors.ink,
+    },
+    cardMoreMark: {
+        height: 104,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: colors.accentTint,
+    },
+
     /*
      * Where the header's blue finishes.
      *
