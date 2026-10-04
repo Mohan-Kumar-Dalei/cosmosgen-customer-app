@@ -8,6 +8,7 @@ import { useSession } from "../src/session";
 import { font, radius, space, useColors, useThemedStyles } from "../src/theme";
 import { Art, Body, Button, Display, Field, Greeting, Lede, Notice, Small } from "../src/ui";
 import { useKeyboardPad, useKeyboardScroll } from "../src/keyboard";
+import { tick } from "../src/touch";
 import { Icon } from "../src/Icon";
 
 /**
@@ -73,6 +74,8 @@ export default function Login() {
             return setError(res.message);
         }
 
+        // The code is on its way - worth feeling, unlike every other tap.
+        tick();
         setSent(true);
         setReturning(res.returning ? res.name : null);
         setWait(res.retryAfter || 45);

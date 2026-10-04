@@ -16,6 +16,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import { ik } from "./brand";
 import { cardFor, font, radius, rampFor, shadowFor, space, useColors, useThemedStyles } from "./theme";
+import { PRESSED_OPACITY, PRESSED_SCALE, pressStyle, rippleFor } from "./touch";
 import { Icon } from "./Icon";
 
 /* ==================================================================
@@ -299,7 +300,12 @@ export const PriceRange = ({ range, size = "lg", align = "left" }) => {
  * on the screen, and no work at all until a thumb lands. Android keeps its
  * ripple on top, which is the feedback that platform expects anyway.
  */
-const PRESSED = 0.72;
+/*
+ * The dim lives in src/touch.js now, with the squeeze and the ripple beside
+ * it, because a press is one gesture and was being answered in three places.
+ * This is kept for anything still reaching for it directly.
+ */
+const PRESSED = PRESSED_OPACITY;
 
 /*
  * Every filled button is a gradient, the way the site's WhatsApp button is.
@@ -353,16 +359,17 @@ export const Button = ({
                  * see it. Drawn in the foreground it lands over the fill,
                  * which is where Android puts it anyway.
                  */
-                // No ripple. See Row above - this app says "pressed" with a
-                // dim and nothing else, so that one gesture has one answer.
-                android_ripple={null}
+                // The platform's own answer, very quietly, over the fill -
+                // see src/touch.js for why `foreground` matters on a gradient.
+                android_ripple={rippleFor(colors)}
                 style={({ pressed }) => [
                     s.button,
                     small ? { height: 42, paddingHorizontal: space.lg } : null,
                     {
                         backgroundColor: palette.bg,
                         borderColor: palette.border,
-                        opacity: off ? 0.55 : (pressed ? PRESSED : 1),
+                        opacity: off ? 0.55 : (pressed ? PRESSED_OPACITY : 1),
+                        transform: [{ scale: pressed && !off ? PRESSED_SCALE : 1 }],
                     },
                     tone !== "plain" ? shadowFor(colors) : null,
                 ]}
@@ -424,16 +431,31 @@ export const GradientFill = ({ color, lift, drop }) => (
  * card, and rather than keep two rules the app now keeps one: press dims,
  * everywhere, immediately, with nothing travelling across anything.
  */
-export const Row = ({ children, onPress, style }) => (
-    <View style={style}>
-        <Pressable
-            onPress={onPress}
-            style={({ pressed }) => (pressed ? { opacity: PRESSED } : null)}
-        >
-            {children}
-        </Pressable>
-    </View>
-);
+export const Row = ({ children, onPress, style }) => {
+    const colors = useColors();
+
+    return (
+        <View style={style}>
+            <Pressable
+                onPress={onPress}
+
+                /*
+                 * Dim, squeeze and ripple - see src/touch.js.
+                 *
+                 * This was a dim on its own. Two per cent of scale, held flat
+                 * until the finger lifts, is what gives a card the feeling of
+                 * moving under a thumb rather than merely fading, and the
+                 * ripple at eight per cent is what an Android user is already
+                 * expecting to find there.
+                 */
+                style={pressStyle}
+                android_ripple={rippleFor(colors)}
+            >
+                {children}
+            </Pressable>
+        </View>
+    );
+};
 
 /** A choice, as a pill. Selected pills carry the field colour, not grey. */
 /**

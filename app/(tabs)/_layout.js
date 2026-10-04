@@ -96,8 +96,13 @@ export default function TabsLayout() {
                   */}
                 <Tabs.Screen name="services" options={{ title: "Services", tabBarIconName: "grid-line" }} />
 
-                <Tabs.Screen name="jobs" options={{ title: "Bookings", tabBarIconName: "calendar" }} />
+                {/*
+                  * The assistant sits in the middle, which is why it is
+                  * declared third - the bar draws these in the order they are
+                  * written, and the middle one is the raised circle.
+                  */}
                 <Tabs.Screen name="ask" options={{ title: "Ask AI", tabBarMark: AiMark }} />
+                <Tabs.Screen name="jobs" options={{ title: "Bookings", tabBarIconName: "calendar" }} />
                 <Tabs.Screen name="account" options={{ title: "Account", tabBarIconName: "user" }} />
             </Tabs>
         </View>

@@ -17,6 +17,7 @@ import {
     Body, Button, Display, Greeting, IconArt, Lede, Notice, PriceRange, Row, Small,
 } from "../../src/ui";
 import { useKeyboardPad, useKeyboardScroll } from "../../src/keyboard";
+import { tickDone } from "../../src/touch";
 import { Icon } from "../../src/Icon";
 
 /**
@@ -537,6 +538,9 @@ export default function Book() {
              * things anybody wants next - track it, or go home. It replaces
              * rather than pushes, so Back never returns into a finished form.
              */
+            // The one moment in this whole flow worth a buzz.
+            tickDone();
+
             router.replace({
                 pathname: "/booked/" + res.data.data.id,
                 params: { ticket: res.data.data.ticketNumber || "" },

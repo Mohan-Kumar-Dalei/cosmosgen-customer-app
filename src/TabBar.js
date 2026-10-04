@@ -133,6 +133,20 @@ export const CustomerTabBar = ({ state, descriptors, navigation }) => {
 
     const slot = width / Math.max(1, tabs.length);
 
+    /*
+     * The middle one is the assistant, and it is not a tab.
+     *
+     * Mohan asked for it as a circle in the centre with the rest either side,
+     * which is the shape a lot of apps use for the one thing they want pressed
+     * - and here it is the right one, because the assistant is the only tab
+     * that does something rather than going somewhere.
+     *
+     * It is raised out of the island rather than sitting in it. A circle the
+     * same height as the row would just be a round tab; lifted, it reads as a
+     * button the bar was built around.
+     */
+    const middle = Math.floor(tabs.length / 2);
+
     return (
         <View
             style={[s.dock, { paddingBottom: insets.bottom + LIFT }]}
@@ -142,7 +156,15 @@ export const CustomerTabBar = ({ state, descriptors, navigation }) => {
                 style={s.island}
                 onLayout={(e) => setWidth(e.nativeEvent.layout.width - PAD * 2)}
             >
-                {width > 0 ? (
+                {/*
+                  * The marker skips the middle.
+                  *
+                  * There is nothing to mark there - the circle is its own
+                  * indicator, and a pale pill sliding underneath it would be
+                  * two things saying the same thing. So it is only drawn when
+                  * the tab you are on is one of the four around it.
+                  */}
+                {width > 0 && active !== middle ? (
                     <Animated.View
                         pointerEvents="none"
                         style={[
@@ -164,12 +186,9 @@ export const CustomerTabBar = ({ state, descriptors, navigation }) => {
                     const { options } = descriptors[route.key];
                     const focused = active === i;
                     const icon = options.tabBarIconName || "circle";
-
-                    // A tab can carry a drawn mark instead of a Feather name -
-                    // the assistant has one of its own, because a speech
-                    // bubble is what every other tab in this app also is.
                     const Mark = options.tabBarMark;
                     const ink = focused ? colors.field : colors.inkSoft;
+                    const isMiddle = i === middle;
 
                     const onPress = () => {
                         const event = navigation.emit({
@@ -179,6 +198,26 @@ export const CustomerTabBar = ({ state, descriptors, navigation }) => {
                         });
                         if (!focused && !event.defaultPrevented) navigation.navigate(route.name);
                     };
+
+                    if (isMiddle) {
+                        return (
+                            <Pressable
+                                key={route.key}
+                                onPress={onPress}
+                                accessibilityRole="button"
+                                accessibilityState={focused ? { selected: true } : {}}
+                                accessibilityLabel={options.title}
+                                android_ripple={null}
+                                style={s.slot}
+                            >
+                                <View style={[s.orb, focused ? s.orbOn : null]}>
+                                    {Mark
+                                        ? <Mark size={ICON + 3} color={colors.fieldInk} />
+                                        : <Icon name={icon} size={ICON + 3} color={colors.fieldInk} weight="fill" />}
+                                </View>
+                            </Pressable>
+                        );
+                    }
 
                     return (
                         <Pressable
@@ -191,16 +230,10 @@ export const CustomerTabBar = ({ state, descriptors, navigation }) => {
                             style={s.slot}
                         >
                             {/*
-                              * Filled where you are, outline where you are not.
-                              *
-                              * Phosphor draws every mark at several weights off
-                              * the same geometry, and this is what that is for:
-                              * the tab you are standing on is solid, the rest
-                              * are line, and the difference reads instantly
-                              * without a second colour or a second size. The
-                              * bar was all outline, so the only thing saying
-                              * where you were was a pale pill behind one of
-                              * them.
+                              * Filled where you are, outline where you are not -
+                              * Phosphor draws every mark at both off the same
+                              * geometry, and the difference reads without a
+                              * second colour or a second size.
                               */}
                             {Mark
                                 ? <Mark size={ICON - 1} color={ink} />
@@ -228,6 +261,38 @@ export const CustomerTabBar = ({ state, descriptors, navigation }) => {
 };
 
 const makeStyles = (colors) => StyleSheet.create({
+    /*
+     * The assistant, raised out of the bar.
+     *
+     * Bigger than the row it sits in and lifted above it, so the island
+     * appears to have been built around it rather than to contain it. The
+     * negative margin is the lift: the circle is 54 points in a 44 point slot,
+     * and half the difference again takes its top edge clear of the island's.
+     *
+     * It carries the primary colour whether or not you are on it. The four
+     * tabs beside it are places and go grey when you leave them; this is a
+     * thing you press, and a thing you press does not dim because you are
+     * standing somewhere else.
+     */
+    orb: {
+        width: 54,
+        height: 54,
+        borderRadius: 27,
+        marginTop: -22,
+        backgroundColor: colors.field,
+        alignItems: "center",
+        justifyContent: "center",
+
+        // A ring of the page's own colour, so the circle reads as sitting in
+        // front of the bar rather than punched through it.
+        borderWidth: 4,
+        borderColor: colors.surface,
+    },
+
+    // Pressed into, rather than merely lit: the deep shade the rest of the
+    // app uses for a held button.
+    orbOn: { backgroundColor: colors.accentDeep },
+
     dock: {
         position: "absolute",
         left: 0,
