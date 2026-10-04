@@ -152,42 +152,34 @@ const light = {
      * the screen allowed to shout.
      */
     /*
-     * Deep forest, and the shade it goes when pressed.
+     * Deep blue, between Tailwind's 700 and 900.
      *
-     * Two colours came before it. Electric Royal Blue, which Mohan asked to be
-     * rid of - it was the most saturated thing on every screen, and a loud
-     * primary makes a page look like software because software is where that
-     * blue lives. Then a deep espresso, which he liked less: it was quiet
-     * where he wanted the app to feel confident.
+     * Three primaries came before it. Electric Royal Blue, which Mohan asked
+     * to be rid of - it was the most saturated thing on every screen and made
+     * the app read as software. A deep espresso, which was quiet where he
+     * wanted confidence. A forest green, which was his own pick and still not
+     * it. He named these two shades himself, and the reason they work where
+     * the first blue did not is depth: #1d4ed8 is still bright enough to be a
+     * highlighter across a whole header, #1e3a8a is nearly navy, and the point
+     * between them is a blue that can carry a band without shouting from it.
      *
-     * This is the company's own green, taken down until it can carry a whole
-     * header. The logo green is a bright mid-tone and a band of it would be a
-     * highlighter; at this depth the same hue reads the way a dark green reads
-     * on anything expensive, and a paper-coloured heading sits on it without
-     * a fight.
-     *
-     * It is also the colour Mohan pointed at. He sent Swiggy's header as the
-     * thing to match, and theirs is this decision - a brand green deep enough
-     * to be furniture rather than decoration.
-     *
-     * The palette keeps its meanings. `brand` stays the logo's bright green
-     * for money and confirmation, `ok` stays the cooler emerald for a thing
-     * that has happened, and this is darker than both - so where two greens
-     * meet, the difference is depth rather than hue, which is how the eye
-     * reads them anyway.
+     * The difference from where this started is not hue, it is saturation. A
+     * primary that has to fill the top fifth of every screen cannot be the
+     * loudest thing on it, because then everything else - the logo green, the
+     * done green, the terracotta warning - is arguing with the furniture.
      */
-    accent: "#15572f",          // deep forest
-    accentDeep: "#0e3d20",      // the pressed state
-    accentTint: "#e4efe7",      // its palest wash
-    accentEdge: "#bed6c7",
+    accent: "#1e40af",          // between blue-700 and blue-900
+    accentDeep: "#1e3a8a",      // blue-900, the pressed state
+    accentTint: "#e8edfb",      // its palest wash
+    accentEdge: "#c2cef2",
 
     /*
      * A whole band of colour rather than a button's worth: the primary button,
      * the tab badge, the bar the booking flow finishes on.
      */
-    field: "#15572f",
-    fieldSoft: "#2c7347",
-    fieldInk: "#f6f9f6",
+    field: "#1e40af",
+    fieldSoft: "#3156c4",
+    fieldInk: "#f7f9fe",
 
     brand: "#17a03c",           // the logo green: money, done, confirmed
     brandDeep: "#128132",
@@ -310,23 +302,30 @@ const dark = {
      * reading as the thing to press.
      */
     /*
-     * The same green, lifted rather than deepened.
+     * The same blue, lifted rather than deepened.
      *
-     * A forest green on a near-black page is a dark shape on a dark page, so
-     * this side takes the hue up instead of down - bright enough to be the
-     * thing the eye finds, and still unmistakably the same colour as the light
-     * theme's band rather than a different idea for night.
+     * #1e40af on a near-black page is a dark shape on a dark page. This side
+     * takes the hue up until it is the thing the eye finds first, and keeps it
+     * unmistakably the same colour as the light theme's band rather than a
+     * separate idea for night - which is what makes a two-theme app feel like
+     * one app rather than two.
      */
-    accent: "#5fd089",
-    accentDeep: "#8ee0ab",
-    accentTint: "#13301f",
-    accentEdge: "#2c5c3e",
+    accent: "#8fb0ff",
+    accentDeep: "#b9cbff",
+    accentTint: "#161d38",
+    accentEdge: "#2e3a63",
 
-    // The band and the primary button, in the lifted green, with the page's
-    // own near-black written on it.
-    field: "#5fd089",
-    fieldSoft: "#3f9c62",
-    fieldInk: "#0d2015",
+    /*
+     * The band and the primary button on the dark side.
+     *
+     * Deeper than the accent above, because this is a surface somebody reads
+     * white words off rather than a mark somebody looks at - a pale blue
+     * filled across the top of the page would glare on a near-black screen at
+     * night, which is the one time this theme is actually used.
+     */
+    field: "#2c4fb8",
+    fieldSoft: "#3f62c9",
+    fieldInk: "#f2f5fd",
 
     brand: "#4ac96d",
     brandDeep: "#4ac96d",
